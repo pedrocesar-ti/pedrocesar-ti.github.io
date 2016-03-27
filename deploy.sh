@@ -14,6 +14,7 @@ git remote add upstream "https://${GH_TOKEN}@${GH_REF}"
 git fetch upstream
 git reset upstream/gh-pages
 
+echo "blog.pedrocesar.info" > CNAME
 touch .
 
 git add -A .
