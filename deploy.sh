@@ -12,7 +12,7 @@ git config user.email "pedrocesar.ti@gmail.com"
 
 git remote add upstream "https://${GH_TOKEN}@${GH_REF}" 
 git fetch upstream
-git reset upstream/gh-pages
+git reset upstream/master
 
 echo "blog.pedrocesar.info" > CNAME
 touch .
