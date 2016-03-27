@@ -7,7 +7,7 @@ before_install:
   - npm install gitbook-cli -g
 env:
   global:
-  - GH_REF: github.com/
-  - secure: 
+  - GH_REF: github.com/pedrocesar-ti/pedrocesar-ti.github.io
+  - secure: "r8HPrPT1fLXVZAkDqpdoqg257GEYEvCYnMsjdmdmWMzXwtkTNMM+4KVl7QX5tKA0Ds+WAw4GutZE/cA3rnEZznn36QSsH7pOyWZXSTKhP04f2gQLxWhuEesVui7hZbATiZLst3v3Z7XhHMx58+RUjP43G62XtbvJ/6N+SnDO0Ke99YB8GzcnN7c7Qw8PtVK5SBrghMYXyTT7mJxkfXX6zZzSaEn2NkE/5G/KrrKwRPbVZ6rUzj7fogESAfqgIoKBRnESDpKWIFXvJEZomplXDc7aeFXeGqijHv2iFvDMTSdvHEgs9zvdYG6odtNl4Nyq0dvH0CBAXhCyEn0cHz43Qf1LNZVu3yR3uwOE5aLZQqoWKrN2iytfBkLKxcYRbzG8T+Jhk8qp/6Igj6AdSnRgm2Pn6Bi5HU24vITJ0hPmDzsYbkhLjX+JJmBDm7GpYkbyhPO29edlhlTOpRyldgYGn9A4bOqz7Hob7kXjJgDXvgHrUwybuvzOIfbYD1ITnWL5f5xv7hPJEn7q6B8zEgCqlCJ7W8Ma8GUabPBrssM7BNi/uLkok/o2kh0bdf9TkDpV1nNVxSad1r+moiOlmrlNHe4czkoCONDSBkDCIfF9s4lLfqREsZyLbhaMg0GGHpt9DHSiGxLSv08Yy743E4dP/1Ks4msw1AZtZFW0lxYdMOs="
 after_success:
   - bash deploy.sh
