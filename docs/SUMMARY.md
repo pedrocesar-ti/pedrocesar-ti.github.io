@@ -1,2 +1,2 @@
 # Table of content 
-* [Starting]()
+* [Starting](docs/starting.md)
