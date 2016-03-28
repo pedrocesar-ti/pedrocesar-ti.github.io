@@ -1,6 +1,6 @@
 {
 	"gitbook": "2.4.3",
-		"plugins": ["prism", "-highlight", "-sharing", "github", "youtube"],
+		"plugins": ["prism", "-highlight", "-share", "github", "youtube"],
 		"structure": {
 			"summary": "docs/SUMMARY.md"
 
@@ -10,9 +10,6 @@
 
 		},
 		"pluginsConfig": {
-			"sharing": {
-			"facebook": false
-			},
 			"github": {
 				"url": "https://github.com/pedrocesar-ti"
 			}
