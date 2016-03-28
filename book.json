@@ -1,6 +1,6 @@
 {
 	"gitbook": "2.4.3",
-	"plugins": ["prism", "-highlight", "github", "youtube"],
+	"plugins": ["prism", "-highlight", "-sharing", "github", "youtube"],
 	"structure": {
 		"summary": "docs/SUMMARY.md"
 
