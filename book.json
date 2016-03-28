@@ -10,14 +10,6 @@
 
 		},
 		"pluginsConfig": {
-			"sharing": {
-				"facebook": true,
-				"twitter": true,
-				"google": false,
-				"weibo": false,
-				"instapaper": false,
-				"vk": false,
-			},
 			"github": {
 				"url": "https://github.com/pedrocesar-ti"
 
