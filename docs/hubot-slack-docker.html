@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="2" data-basepath=".." data-revision="Mon Mar 28 2016 17:02:22 GMT+0000 (UTC)">
+    <div class="book" data-level="2" data-basepath=".." data-revision="Tue Mar 29 2016 23:37:56 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -118,14 +118,21 @@
             
         </li>
     
-        <li class="chapter " data-level="4" data-path="docs/puppet-br-certification.html">
+        <li class="chapter " data-level="4" data-path="docs/slate-docker.html">
+            
+            <span><b>4.</b> slate-docker</span>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="docs/puppet-br-certification.html">
             
                 
                     <a href="../docs/puppet-br-certification.html">
                 
                         <i class="fa fa-check"></i>
                         
-                            <b>4.</b>
+                            <b>5.</b>
                         
                         puppet-br-certification
                     </a>
@@ -239,7 +246,56 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="hubot-slack-docker">Hubot Slack Docker</h1>
+                        <h1 id="hubot-slack-docker">hubot-slack-docker</h1>
+<p>Container running GitHub Hubot with a plugin to connect to a Slack team. Some environment variables have to be set to permit connection with a Slack account in a specific channel.</p>
+<p>This repository is connect to DockerHub to create an image automaticaly. So you just need run a docker container where the source is <strong>pedrocesarti/hubot</strong>.</p>
+<h2 id="running-container">Running container</h2>
+<p>To run this container, you should running the command above:</p>
+<p><code>shell
+docker run --name mybot -it  -e HUBOT_SLACK_TOKEN=&apos;#######&apos; -e Hubot_SLACK_TEAM=&apos;#######&apos; -e Hubot_SLACK_BOTNAME=&apos;#######&apos; -d pedrocesarti/hubot-slack</code></p>
+<h2 id="environment-variable">Environment Variable</h2>
+<p>The variables set on runnning is used to connect on Slack account, Slack channel and to set a name for your bot send messages. You can read more about integrations with Slack and generate the token to connect <a href="https://slack.com/apps/A0F7XDU93-hubot" target="_blank">here</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HUBOT_SLACK_TOKEN</strong></td>
+<td>Token generate for Slack integration.</td>
+</tr>
+<tr>
+<td><strong>Hubot_SLACK_TEAM</strong></td>
+<td>Account for connection team.</td>
+</tr>
+<tr>
+<td><strong>Hubot_SLACK_BOTNAME</strong></td>
+<td>Name for user used for Hubot to connect to account.</td>
+</tr>
+</tbody>
+</table>
+<p>Some Hubot scripts used to use Google API to make searches on Internet, however Google disable that resource and couple scripts broke. So now you have to create a SEARCH ENGINE and connect that to you own GOOGLE API. You can read more about theses issues at the end of this file, but in general you only need put those variables on container environment and everything is going to work.</p>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HUBOT_GOOGLE_CSE_ID</strong></td>
+<td>Id to connect a Google accountToken generate for Slack integration.</td>
+</tr>
+<tr>
+<td><strong>HUBOT_GOOGLE_CSE_KEY</strong></td>
+<td>Account for connection team.</td>
+</tr>
+</tbody>
+</table>
 
                     
                     </section>
