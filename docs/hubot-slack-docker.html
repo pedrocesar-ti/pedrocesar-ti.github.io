@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="2" data-basepath=".." data-revision="Fri Apr 01 2016 02:26:13 GMT+0000 (UTC)">
+    <div class="book" data-level="2" data-basepath=".." data-revision="Fri Apr 01 2016 17:05:58 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -163,6 +163,21 @@
             
         </li>
     
+        <li class="chapter " data-level="7" data-path="docs/puppet-br.org-octopress.html">
+            
+                
+                    <a href="../docs/puppet-br.org-octopress.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        puppet-br
+                    </a>
+            
+            
+        </li>
+    
 
 
             
@@ -274,8 +289,8 @@
 <p>This repository is connect to DockerHub to create an image automaticaly. So you just need run a docker container where the source is <strong>pedrocesarti/hubot</strong>.</p>
 <h2 id="running-container">Running container</h2>
 <p>To run this container, you should running the command above:</p>
-<p><code>shell
-docker run --name mybot -it  -e HUBOT_SLACK_TOKEN=&apos;#######&apos; -e Hubot_SLACK_TEAM=&apos;#######&apos; -e Hubot_SLACK_BOTNAME=&apos;#######&apos; -d pedrocesarti/hubot-slack</code></p>
+<pre><code class="lang-shell">docker run --name mybot -it  -e HUBOT_SLACK_TOKEN=&apos;#######&apos; -e Hubot_SLACK_TEAM=&apos;#######&apos; -e Hubot_SLACK_BOTNAME=&apos;#######&apos; -d pedrocesarti/hubot-slack
+</code></pre>
 <h2 id="environment-variable">Environment Variable</h2>
 <p>The variables set on runnning is used to connect on Slack account, Slack channel and to set a name for your bot send messages. You can read more about integrations with Slack and generate the token to connect <a href="https://slack.com/apps/A0F7XDU93-hubot" target="_blank">here</a>.</p>
 <table>
@@ -300,7 +315,7 @@ docker run --name mybot -it  -e HUBOT_SLACK_TOKEN=&apos;#######&apos; -e Hubot_S
 </tr>
 </tbody>
 </table>
-<p>Some Hubot scripts used to use Google API to make searches on Internet, however Google disable that resource and couple scripts broke. So now you have to create a SEARCH ENGINE and connect that to you own GOOGLE API. You can read more about theses issues at the end of this file, but in general you only need put those variables on container environment and everything is going to work.</p>
+<p>Some Hubot scripts used to use Google API to make searches on Internet, however Google disable that resource and couple scripts broke. So now you have to create a SEARCH ENGINE and connect that to you own GOOGLE API. You can read more about theses issues at the end of this file, but in general you only need put those variables on container environment and everything is going to work. </p>
 <table>
 <thead>
 <tr>
