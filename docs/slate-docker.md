@@ -1,5 +1,5 @@
 # slate-docker
-Repository to create a container with Docker to serve a API documentation using [Slate](https://github.com/tripit/slate). The main idea here is you keep your documentation in a **private repository** and clone inside this project to run you own documentation with two commands.
+Repository to create a container with Docker to serve a API documentation using [Slate](https://github.com/tripit/slate). The main idea here is you keep your documentation in a **private repository** and clone inside this project to run you own documentation with two commands. 
 
 Technologies
 ------------
@@ -14,21 +14,21 @@ Technologies
 
 Running the Container
 ------------------------------
-``shell
+```shell
 docker run -p 4567:4567 -v /absolute/path/for/your/doc/source:/app/slate/source -d pedrocesarti/slate-docker
-``
+```
 or if you don't have any documentation.
 
-``shell
+```shell
 git clone --recursive https://github.com/pedrocesar-ti/slate-docker.git
 cd slate-docker
 docker run -p 4567:4567 -v $(pwd)/slate/source:/app/slate/source -d pedrocesarti/slate-docker
-``
+```
 
 
-Repositories used to
+Repositories used to 
 ---------------------------------
 
 * [Slate](https://github.com/tripit/slate)
 * [Docker Slate](https://github.com/tutumcloud/slate)
-* [Docker RBENV](https://github.com/tcnksm/dockerfile-rbenv)`
+* [Docker RBENV](https://github.com/tcnksm/dockerfile-rbenv)

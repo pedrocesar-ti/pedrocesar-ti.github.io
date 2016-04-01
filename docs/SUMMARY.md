@@ -5,3 +5,4 @@
 * [monitor-stack-docker](docs/monitor-stack-docker.md)
 * [slate-docker](docs/slate-docker.md)
 * [puppet-br-certification](docs/puppet-br-certification.md)
+* [puppet-br](docs/puppet-br.org-octopress.md)
