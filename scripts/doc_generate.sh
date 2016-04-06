@@ -19,5 +19,5 @@ for directories in `ls -d */`
 do 
 	echo "Mandando $directories"
 	FILE=$(echo $directories | sed 's/\//\.md/')
-	cat $directories/README.md > $MAIN/docs/$FILE || cat $directories/README.markdown > $MAIN/docs/$FILE 2> /dev/null
+	cat $directories/README.md > $MAIN/docs/$FILE 2> /dev/null || cat $directories/README.markdown > $MAIN/docs/$FILE
 done
