@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="4" data-basepath=".." data-revision="Sat Apr 09 2016 14:32:37 GMT+0000 (UTC)">
+    <div class="book" data-level="4" data-basepath=".." data-revision="Mon Apr 11 2016 12:05:01 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -300,8 +300,99 @@
                     <section class="normal" id="section-">
                     
                         <h1 id="internet-speedtest-docker">internet-speedtest-docker</h1>
-<p>Here in Brazil is a mess to contract a good ISP, they just don&apos;t delivery the speed they should for the users. Generally in a small business or a residence you can&apos;t pay for a very expensive plans where they certify the bandwidth delivered. So you have to call them many times complaining about the speed of your internet connection and always they will ask you to do that Internet Tests Online, such as <a href="http://www.speedtest.net" target="_blank">SpeedTest</a>, <a href="http://www.att.com/speedtest/" target="_blank">AT&amp;T SpeedTest</a>, <a href="http://testmy.net" target="_blank">TestMyNet</a>, most of this tests is based only on ICMP messages that don&apos;t reflect your real bandwidth on that time. Or even worse your ISP can allow all trafic ICMP so when you test appers that you have a good speed but when you have to download some content you can&apos;t do it well.
-This project won&apos;t help you with your connect, acctually this project born when I need to start monitoring the speed, create a report to send to my ISP take some action. So, using <strong>Docker Compose</strong> I put together three containers with all the tools needed to monitoring and display the status of your Internet Speed (and I know that tool can do more).  </p>
+<p><strong><strong>Spoiler Alert</strong></strong></p>
+<p>This project won&apos;t help you with your connection, actually this project born when I need to monitoring the speed of my Internet, create a report to send to my ISP, so they can take some action. Using <strong>Docker Compose</strong> I put together three containers with the tools needed to monitoring and display the status of your Internet (and I know that tool can do more or can be better).</p>
+<p>Here in Brazil is a mess to contract a good ISP, they just don&apos;t delivery the speed they should for the users. Generally in a small business or a residence you can&apos;t pay for a very expensive plans where they certify the bandwidth delivered. So you have to call them many times complaining about the speed of your internet connection and always they will ask you to do that Internet Tests Online, such as <a href="http://www.speedtest.net" target="_blank">SpeedTest</a>, <a href="http://www.att.com/speedtest/" target="_blank">AT&amp;T SpeedTest</a>, <a href="http://testmy.net" target="_blank">TestMyNet</a>, most of this tests is based only on ICMP messages that don&apos;t reflect your real bandwidth on that time. Or even worse your ISP can allow all trafic ICMP so when you test appers that you have a good speed but when you have to download some content you can&apos;t do it that well. There are much more to talk about it but I don&apos;t wanna spend so much time talk about the things that are wrong here.</p>
+<h2 id="running-container">Running container</h2>
+<p>The only requirement to run this compose is have Docker Compose installed, if you need to install you can <a href="">click here</a> to check out how can you do that. After installed the only thing you need is export a variable and run the compose as command available below:</p>
+<pre><code class="lang-shell">cd internet-speedtest-docker
+
+export GRAFANA_PASSWD=your_password
+docker-compose up -d
+</code></pre>
+<h2 id="docker-compose">Docker Compose</h2>
+<p>As you probably know Docker Compose is a tool to let you running a multi-container application, so as I sad before I put together some contaiers to make everything work together. They are described below:</p>
+<h3 id="influxdb-db">InfluxDB (DB)</h3>
+<p>InfluxDB is a database tool based on time-series, so every event is registrate with their timestamp. I decided to use InfluxDB at first because has great integration with Grafana and second I don&apos;t take cara about timestamp and how generate the graphs based on time.</p>
+<p>I used <a href="https://github.com/tutumcloud/influxdb" target="_blank">tutumcloud/influxdb</a> image because is very useful and all parametrized so is easy to use.</p>
+<p>You can customize some actions with variables listed below:</p>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Default</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ADMIN_USER</strong></td>
+<td>admin</td>
+<td>Set root user for the database.</td>
+</tr>
+<tr>
+<td><strong>INFLUXDB_INIT_PWD</strong></td>
+<td>password</td>
+<td>Set the password for the root user.</td>
+</tr>
+<tr>
+<td><strong>PRE_CREATE_DB</strong></td>
+<td>password</td>
+<td>Create a database <strong>speedtest</strong> when container starts.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="grafana-web">Grafana (Web)</h3>
+<p>Grafana is a tool to create and manage dashboards and graphs. It&apos;s a really cool tool and as I sad earlier has a perfect integration with InfluxDB.</p>
+<p>When I started this project I used <a href="https://github.com/tutumcloud/grafana" target="_blank">tutumcloud/grafana</a> image, however they stopped to update grafana image beacause the new version has a different way to be installed, so it&apos;s deprecated. So I used <a href="https://hub.docker.com/r/grafana/grafana/" target="_blank">grafana</a> original image as a base system to generate my own image.</p>
+<p>You can also customize this image with few variables:</p>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Default</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GF_SERVER_ROOT</strong></td>
+<td><a href="http://localhost" target="_blank">http://localhost</a></td>
+<td>Set URL to configure Grafana built-in web server.</td>
+</tr>
+<tr>
+<td><strong>GF_SECURITY_ADMIN_PASSWORD</strong></td>
+<td><strong><strong>It&apos;s not set by default.</strong></strong></td>
+<td>This is a password to access the Grafana Dashboard.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="speedtest-testing">SpeedTest (Testing)</h3>
+<p>This image was created to run a script that calls speedtest-cli to test the internet connect and save data on InfluxDB. <a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a> is a tool written in Python and is used to test your Internet connection based on your location and servers configured previously.</p>
+<p>The only variable to customize on this image is a variable to set the frequency that this script will run.</p>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Default</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TIME_INTERVAL</strong></td>
+<td>600</td>
+<td>Time (in sec.) to set how long will sleep the script until run again.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="repositories-used-to">Repositories used to</h2>
+<ul>
+<li><a href="https://github.com/tutumcloud/influxdb" target="_blank">tutumcloud/influxdb</a></li>
+<li><a href="https://hub.docker.com/r/grafana/grafana/" target="_blank">Grafana</a></li>
+<li><a href="https://github.com/tutumcloud/grafana" target="_blank">tutumcloud/grafana</a></li>
+<li><a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a></li>
+</ul>
 
                     
                     </section>
