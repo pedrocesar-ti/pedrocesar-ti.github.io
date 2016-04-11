@@ -11,6 +11,7 @@ Here in Brazil is a mess to contract a good ISP, they just don't delivery the sp
 The only requirement to run this compose is have Docker Compose installed, if you need to install you can [click here]() to check out how can you do that. After installed the only thing you need is export a variable and run the compose as command available below:
 
 ```shell
+git clone https://github.com/pedrocesar-ti/internet-speedtest-docker.git
 cd internet-speedtest-docker
 
 export GRAFANA_PASSWD=your_password
@@ -48,7 +49,7 @@ You can also customize this image with few variables:
 
 
 ### SpeedTest (Testing)
-This image was created to run a script that calls speedtest-cli to test the internet connect and save data on InfluxDB. [SpeedTest](https://github.com/sivel/speedtest-cli/) is a tool written in Python and is used to test your Internet connection based on your location and servers configured previously.
+This image was created to run a script that calls speedtest-cli to test the internet connect and save data on InfluxDB. [SpeedTest](https://github.com/sivel/speedtest-cli/) is a tool written in Python and is used to test your Internet connection based on donwload and upload some content from servers configured previously.
 
 The only variable to customize on this image is a variable to set the frequency that this script will run.
 
