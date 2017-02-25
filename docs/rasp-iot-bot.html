@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>slate-docker | Pedro Cesar!</title>
+        <title>rasp-iot-bot | Pedro Cesar!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../docs/puppet-br-certification.html" />
+    <link rel="next" href="../docs/machine.html" />
     
     
-    <link rel="prev" href="../docs/snm-cm-docker.html" />
+    <link rel="prev" href="../docs/hubot-slack-docker.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="12" data-basepath=".." data-revision="Sat Feb 25 2017 01:52:17 GMT+0000 (UTC)">
+    <div class="book" data-level="3" data-basepath=".." data-revision="Sat Feb 25 2017 01:52:17 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -99,7 +99,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3" data-path="docs/rasp-iot-bot.html">
+        <li class="chapter active" data-level="3" data-path="docs/rasp-iot-bot.html">
             
                 
                     <a href="../docs/rasp-iot-bot.html">
@@ -234,7 +234,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="12" data-path="docs/slate-docker.html">
+        <li class="chapter " data-level="12" data-path="docs/slate-docker.html">
             
                 
                     <a href="../docs/slate-docker.html">
@@ -385,31 +385,16 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="slate-docker">slate-docker</h1>
-<p>Repository to create a container with Docker to serve a API documentation using <a href="https://github.com/tripit/slate" target="_blank">Slate</a>. The main idea here is you keep your documentation in a <strong>private repository</strong> and clone inside this project to run you own documentation with two commands. </p>
-<h2 id="technologies">Technologies</h2>
+                        <h1 id="rasp-iot-bot">rasp-iot-bot</h1>
+<p>During a IoT lecture in my MBA in Big Data class my group and I was challenged to create a solution to send a command via Facebook Messenger Bot to a device (Raspberry Pi) that would be responsible to turnon and turnoff a lights in our lab. The idea for a Big Data class was create data that we could use to create Dashboards and make decisions, so the first solution include a <a href="https://firebase.google.com/docs/database/" target="_blank">Firebase DB</a> and a <a href="https://msit.powerbi.com" target="_blank">Microsoft PowerBI</a> dashboard, you can check the code prepared to work with Firebase in the branch <strong>FIAP</strong> I decide to keep a clean and small version to make this easier to people.</p>
+<p align="center"><img src="https://dl.dropboxusercontent.com/s/yltx62pbv5tktu7/Screen%20Shot%202017-02-24%20at%2016.39.29.png" Projects"=""></p>
+
 <ul>
-<li><p><strong>Git</strong> &#x2014; Using git to create a repository and version control for all code developed. I used a private (with all my internal documentation) and a public repository to deploy this container. This Github repository have integration with Dockerhub for every push in the <em>master</em> branch create a new build in Dockerhub repository.</p>
-</li>
-<li><p><strong>Docker Containers</strong> &#x2014; The idea was delivery a web application as a final product. So using Docker I create a new image on Dockerhub that configures all stuff needed to run this application.</p>
-</li>
-<li><p><strong>Write code samples in multiple languages</strong> &#x2014; If your API has bindings in multiple programming languages, you can easily put in tabs to switch between them. In your document, you&apos;ll distinguish different languages by specifying the language name at the top of each code block, just like with <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Github Flavored Markdown</a>.</p>
-</li>
+<li>Solution works in a Raspberry Pi running <a href="https://www.raspbian.org/" target="_blank">Raspian as OS</a>;</li>
+<li>The platform used to develop the application is Javascript in the server side, by default Raspian supports <a href="https://nodejs.org/" target="_blank">NodeJS</a>, so that is no problem to run the code directly on the device..</li>
+<li>Different for other solutions, this solution running the code in the device need be accessible from Internet (to be accessed by Messenger), to do this we run <a href="https://ngrok.com/" target="_blank">Ngrok</a> to create an HTTP tunnel.</li>
 </ul>
-<h2 id="running-the-container">Running the Container</h2>
-<pre><code class="lang-shell">docker run -p 4567:4567 -v /absolute/path/for/your/doc/source:/app/slate/source -d pedrocesarti/slate-docker
-</code></pre>
-<p>or if you don&apos;t have any documentation.</p>
-<pre><code class="lang-shell">git clone --recursive https://github.com/pedrocesar-ti/slate-docker.git
-cd slate-docker
-docker run -p 4567:4567 -v $(pwd)/slate/source:/app/slate/source -d pedrocesarti/slate-docker
-</code></pre>
-<h2 id="repositories-used-to">Repositories used to </h2>
-<ul>
-<li><a href="https://github.com/tripit/slate" target="_blank">Slate</a></li>
-<li><a href="https://github.com/tutumcloud/slate" target="_blank">Docker Slate</a></li>
-<li><a href="https://github.com/tcnksm/dockerfile-rbenv" target="_blank">Docker RBENV</a></li>
-</ul>
+<p>Enjoy! :)</p>
 
                     
                     </section>
@@ -420,10 +405,10 @@ docker run -p 4567:4567 -v $(pwd)/slate/source:/app/slate/source -d pedrocesarti
         </div>
 
         
-        <a href="../docs/snm-cm-docker.html" class="navigation navigation-prev " aria-label="Previous page: monitor-stack-docker"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/hubot-slack-docker.html" class="navigation navigation-prev " aria-label="Previous page: hubot-slack-docker"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../docs/puppet-br-certification.html" class="navigation navigation-next " aria-label="Next page: puppet-br-certification"><i class="fa fa-angle-right"></i></a>
+        <a href="../docs/machine.html" class="navigation navigation-next " aria-label="Next page: machine"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
