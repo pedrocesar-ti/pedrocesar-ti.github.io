@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1" data-basepath=".." data-revision="Sat Feb 25 2017 03:35:40 GMT+0000 (UTC)">
+    <div class="book" data-level="1" data-basepath=".." data-revision="Sat Feb 25 2017 14:00:38 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -144,14 +144,29 @@
             
         </li>
     
-        <li class="chapter " data-level="6" data-path="docs/my-alexa-skills.html">
+        <li class="chapter " data-level="6" data-path="docs/vimfiles.html">
+            
+                
+                    <a href="../docs/vimfiles.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        Vimfiles
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="docs/my-alexa-skills.html">
             
                 
                     <a href="../docs/my-alexa-skills.html">
                 
                         <i class="fa fa-check"></i>
                         
-                            <b>6.</b>
+                            <b>7.</b>
                         
                         my-alexa-skills
                     </a>
@@ -159,29 +174,29 @@
             
         </li>
     
-        <li class="chapter " data-level="7" data-path="docs/vimfiles.html">
+        <li class="chapter " data-level="8" data-path="docs/javascript-mean-docker.html">
             
                 
-                    <a href="../docs/vimfiles.html">
+                    <a href="../docs/javascript-mean-docker.html">
                 
                         <i class="fa fa-check"></i>
                         
-                            <b>7.</b>
+                            <b>8.</b>
                         
-                        vimfiles
+                        javascript-mean-docker
                     </a>
             
             
         </li>
     
-        <li class="chapter " data-level="8" data-path="docs/jenkins-docker-slave.html">
+        <li class="chapter " data-level="9" data-path="docs/jenkins-docker-slave.html">
             
                 
                     <a href="../docs/jenkins-docker-slave.html">
                 
                         <i class="fa fa-check"></i>
                         
-                            <b>8.</b>
+                            <b>9.</b>
                         
                         jenkins-docker-slave
                     </a>
@@ -189,46 +204,31 @@
             
         </li>
     
-        <li class="chapter " data-level="9" data-path="docs/janky-docker.html">
-            
-                
-                    <a href="../docs/janky-docker.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>9.</b>
-                        
-                        janky-docker
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="10" data-path="docs/node-project-talk.html">
-            
-                
-                    <a href="../docs/node-project-talk.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>10.</b>
-                        
-                        node-project-talk
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="11" data-path="docs/snm-cm-docker.html">
+        <li class="chapter " data-level="10" data-path="docs/snm-cm-docker.html">
             
                 
                     <a href="../docs/snm-cm-docker.html">
                 
                         <i class="fa fa-check"></i>
                         
-                            <b>11.</b>
+                            <b>10.</b>
                         
                         monitor-stack-docker
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="docs/janky-docker.html">
+            
+                
+                    <a href="../docs/janky-docker.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        janky-docker
                     </a>
             
             
@@ -390,7 +390,7 @@
 <p>This project won&apos;t help you with your connection, actually this project born when I need to monitoring the speed of my Internet, create a report to send to my ISP, so they can take some action. Using <strong>Docker Compose</strong> I put together three containers with the tools needed to monitoring and display the status of your Internet (and I know that tool can do more or can be better).</p>
 <p>Here in Brazil is a mess to contract a good ISP, they just don&apos;t delivery the speed they should for the users. Generally in a small business or a residence you can&apos;t pay for a very expensive plans where they certify the bandwidth delivered. So you have to call them many times complaining about the speed of your internet connection and always they will ask you to do that Internet Tests Online, such as <a href="http://www.speedtest.net" target="_blank">SpeedTest</a>, <a href="http://www.att.com/speedtest/" target="_blank">AT&amp;T SpeedTest</a>, <a href="http://testmy.net" target="_blank">TestMyNet</a>, most of this tests is based only on ICMP messages that don&apos;t reflect your real bandwidth on that time. Or even worse your ISP can allow all trafic ICMP so when you test appers that you have a good speed but when you have to download some content you can&apos;t do it that well. There are much more to talk about it but I don&apos;t wanna spend so much time talk about the things that are wrong here.</p>
 <h2 id="running-container">Running container</h2>
-<p>The only requirement to run this compose is have Docker Compose installed, if you need to install you can <a href="https://docs.docker.com/compose/install/" target="_blank">click here</a> to check out how can you do that. After installed the only thing you need is export a variable and run the compose as command available below:</p>
+<p>The only requirement to run this compose is have Docker Compose installed, if you need to install you can <a href="https://docs.docker.com/compose/install/" target="_blank">click here</a> to check out how can you do that. After installed the only thing you need is export the variables that you like and run the compose as command available below:</p>
 <pre><code class="lang-shell">git clone https://github.com/pedrocesar-ti/internet-speedtest-docker.git
 cd internet-speedtest-docker
 
@@ -432,7 +432,6 @@ docker-compose up -d
 <p>Grafana is a tool to create and manage dashboards and graphs. It&apos;s a really cool tool and as I sad earlier has a perfect integration with InfluxDB.</p>
 <p>When I started this project I used <a href="https://github.com/tutumcloud/grafana" target="_blank">tutumcloud/grafana</a> image, however they stopped to update grafana image beacause the new version has a different way to be installed, so it&apos;s deprecated. So I used <a href="https://hub.docker.com/r/grafana/grafana/" target="_blank">grafana</a> original image as a base system to generate my own image.</p>
 <p>You can also customize this image with few variables:</p>
-<h3 id="deprecated">DEPRECATED</h3>
 <table>
 <thead>
 <tr>
@@ -449,7 +448,7 @@ docker-compose up -d
 </tr>
 <tr>
 <td><strong>GF_SECURITY_ADMIN_PASSWORD</strong></td>
-<td><strong><strong>It&apos;s not set by default.</strong></strong></td>
+<td><strong>Default without password.</strong></td>
 <td>This is a password to access the Grafana Dashboard.</td>
 </tr>
 </tbody>
@@ -480,6 +479,7 @@ docker-compose up -d
 <li><a href="https://github.com/tutumcloud/grafana" target="_blank">tutumcloud/grafana</a></li>
 <li><a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a></li>
 </ul>
+<p>Enjoy! :)</p>
 
                     
                     </section>
