@@ -3,7 +3,7 @@
 * [hubot-slack-docker](docs/hubot-slack-docker.md)
 * [rasp-iot-bot](docs/rasp-iot-bot.md)
 * [machine](docs/machine.md)
-* [bash_facilities](docs/bash_facilities.md)
+* [bash-facilities](docs/bash-facilities.md)
 * [my-alexa-skills](docs/my-alexa-skills.md)
 * [vimfiles](docs/vimfiles.md)
 * [jenkins-docker-slave](docs/jenkins-docker-slave.md)
