@@ -24,7 +24,7 @@ Install
 -------
 To install, open your terminal (using bash, it will not work on zsh or oh-my-zsh).
 Type:
-``console
+```console
 $ wget https://github.com/pedrocesar-ti/bash_facilities/archive/master.zip
 $ unzip master.zip
 $ cd bash_facilities-master/
