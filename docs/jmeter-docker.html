@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>internet-speedtest-docker | Pedro Cesar!</title>
+        <title>jmeter-docker | Pedro Cesar!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../docs/hubot-slack-docker.html" />
+    <link rel="next" href="../docs/node-teamcity-api.html" />
     
     
-    <link rel="prev" href="../index.html" />
+    <link rel="prev" href="../docs/puppet-br.org-octopress.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1" data-basepath=".." data-revision="Thu May 10 2018 05:33:35 GMT+0000 (UTC)">
+    <div class="book" data-level="16" data-basepath=".." data-revision="Thu May 10 2018 05:33:35 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -69,7 +69,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1" data-path="docs/internet-speedtest-docker.html">
+        <li class="chapter " data-level="1" data-path="docs/internet-speedtest-docker.html">
             
                 
                     <a href="../docs/internet-speedtest-docker.html">
@@ -294,7 +294,7 @@
             
         </li>
     
-        <li class="chapter " data-level="16" data-path="docs/jmeter-docker.html">
+        <li class="chapter active" data-level="16" data-path="docs/jmeter-docker.html">
             
                 
                     <a href="../docs/jmeter-docker.html">
@@ -430,114 +430,7 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="internet-speedtest-docker">internet-speedtest-docker</h1>
-<p><strong><strong>Spoiler Alert</strong></strong></p>
-<p>This project won&apos;t help you with your connection, actually this project born when I need to monitoring the speed of my Internet, create a report to send to my ISP, so they can take some action. Using <strong>Docker Compose</strong> I put together three containers with the tools needed to monitoring and display the status of your Internet (and I know that tool can do more or can be better).</p>
-<p>Here in Brazil is a mess to contract a good ISP, they just don&apos;t deliver the speed they should for the users. Generally in a small business or a residence you can&apos;t pay for a very expensive plans where they certify the bandwidth delivered. So you have to call them many times complaining about the speed of your internet connection and always they will ask you to do that Internet Tests Online, such as <a href="http://www.speedtest.net" target="_blank">SpeedTest</a>, <a href="http://www.att.com/speedtest/" target="_blank">AT&amp;T SpeedTest</a>, <a href="http://testmy.net" target="_blank">TestMyNet</a>, most of these tests are based only on ICMP messages that don&apos;t reflect your real bandwidth at that time. Or even worse your ISP can allow all trafic ICMP so when you test it appears that you have a good speed but when you have to download some content you can&apos;t do it that well. There is much more to talk about it but I don&apos;t wanna spend so much time talking about the things that are wrong here.</p>
-<p align="center"><img src="https://dl.dropboxusercontent.com/s/l0py4zgi5izcbgw/Screen%20Shot%202017-02-27%20at%2023.55.16.png" Grafana"=""></p>
-
-<h2 id="running-container">Running container</h2>
-<p>The only requirement to run this compose is have Docker Compose installed, if you need to install you can <a href="https://docs.docker.com/compose/install/" target="_blank">click here</a> to check out how can you do that. After installed the only thing you need is export the variables that you like and configure the volume for persistent data, then run the compose as command available below:</p>
-<pre><code class="lang-console">$ git clone https://github.com/pedrocesar-ti/internet-speedtest-docker.git
-$ cd internet-speedtest-docker
-
-$ docker-compose up -d
-</code></pre>
-<h2 id="docker-compose">Docker Compose</h2>
-<p>As you probably know Docker Compose is a tool to let you running a multi-container application, so as I sad before I put together some contaiers to make everything work together. They are described below:</p>
-<h3 id="influxdb-db">InfluxDB (DB)</h3>
-<p>InfluxDB is a database tool based on time-series, so every event is registrate with their timestamp. I decided to use InfluxDB at first because has great integration with Grafana and second I don&apos;t take cara about timestamp and how generate the graphs based on time.</p>
-<p align="center"><img src="https://dl.dropboxusercontent.com/s/u8urqvu85ob8zdn/Screen%20Shot%202017-02-28%20at%2000.03.36.png" InfluxDB"=""></p>
-
-<p>This project uses the official InfluxDB image hosted in the Docker Hub Library.</p>
-<p>You can edit or remove the volumes section of the docker-compose.yml file to reflect where you want you persistent data to live, or you can remove it if you like.   If you remove the volume mount you will lose all of your data if the container is removed.</p>
-<pre><code class="lang-docker-compose.yml">services:
-  db:
-    image: influxdb 
-    container_name: influxdb
-    volumes:
-      - &quot;/data/influxdb/:/var/lib/influxdb&quot;
-</code></pre>
-<p>You can customize some actions with variables listed below:</p>
-<table>
-<thead>
-<tr>
-<th>Variables</th>
-<th>Default</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>INFLUXDB_ADMIN_USER</strong></td>
-<td>admin</td>
-<td>Set root user for the database.</td>
-</tr>
-<tr>
-<td><strong>INFLUXDB_ADMIN_PASSWORD</strong></td>
-<td>password</td>
-<td>Set the password for the root user.</td>
-</tr>
-<tr>
-<td><strong>INFLUXDB_DB</strong></td>
-<td>speedtest</td>
-<td>Create a database <strong>speedtest</strong> when container starts.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="grafana-web">Grafana (Web)</h3>
-<p>Grafana is a tool to create and manage dashboards and graphs. It&apos;s a really cool tool and as I said earlier has a perfect integration with InfluxDB.</p>
-<p>When I started this project I used <a href="https://github.com/tutumcloud/grafana" target="_blank">tutumcloud/grafana</a> image, however they stopped to update grafana image beacause the new version has a different way to be installed, so it&apos;s deprecated. So I used <a href="https://hub.docker.com/r/grafana/grafana/" target="_blank">grafana</a> original image as a base system to generate my own image.</p>
-<p>You can also customize this image with few variables:</p>
-<table>
-<thead>
-<tr>
-<th>Variables</th>
-<th>Default</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>GF_SERVER_ROOT</strong></td>
-<td><a href="http://localhost" target="_blank">http://localhost</a></td>
-<td>Set URL to configure Grafana built-in web server.</td>
-</tr>
-<tr>
-<td><strong>GF_SECURITY_ADMIN_PASSWORD</strong></td>
-<td><strong>Default without password.</strong></td>
-<td>This is a password to access the Grafana Dashboard.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="speedtest-testing">SpeedTest (Testing)</h3>
-<p>This image was created to run a script that calls speedtest-cli to test the internet connect and save data on InfluxDB. <a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a> is a tool written in Python and is used to test your Internet connection based on donwload and upload some content from servers configured previously.</p>
-<p>The only variable to customize on this image is a variable to set the frequency that this script will run.</p>
-<table>
-<thead>
-<tr>
-<th>Variables</th>
-<th>Default</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>TIME_INTERVAL</strong></td>
-<td>600</td>
-<td>Time (in sec.) to set how long will sleep the script until run again.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="repositories-used-to">Repositories used to</h2>
-<ul>
-<li><a href="https://hub.docker.com/_/influxdb/" target="_blank">influxdb</a> </li>
-<li><a href="https://hub.docker.com/r/grafana/grafana/" target="_blank">Grafana</a></li>
-<li><a href="https://github.com/tutumcloud/grafana" target="_blank">tutumcloud/grafana</a></li>
-<li><a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a></li>
-</ul>
-<p>Enjoy! :)</p>
-
+                        
                     
                     </section>
                 
@@ -547,10 +440,10 @@ $ docker-compose up -d
         </div>
 
         
-        <a href="../index.html" class="navigation navigation-prev " aria-label="Previous page: Introduction"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/puppet-br.org-octopress.html" class="navigation navigation-prev " aria-label="Previous page: puppet-br"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../docs/hubot-slack-docker.html" class="navigation navigation-next " aria-label="Next page: hubot-slack-docker"><i class="fa fa-angle-right"></i></a>
+        <a href="../docs/node-teamcity-api.html" class="navigation navigation-next " aria-label="Next page: node-teamcity-api"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>internet-speedtest-docker | Pedro Cesar!</title>
+        <title>node-teamcity-api | Pedro Cesar!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,8 @@
         
     
     
-    <link rel="next" href="../docs/hubot-slack-docker.html" />
     
-    
-    <link rel="prev" href="../index.html" />
+    <link rel="prev" href="../docs/jmeter-docker.html" />
     
 
         
@@ -38,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="1" data-basepath=".." data-revision="Thu May 10 2018 05:33:35 GMT+0000 (UTC)">
+    <div class="book" data-level="17" data-basepath=".." data-revision="Thu May 10 2018 05:33:35 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -69,7 +67,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1" data-path="docs/internet-speedtest-docker.html">
+        <li class="chapter " data-level="1" data-path="docs/internet-speedtest-docker.html">
             
                 
                     <a href="../docs/internet-speedtest-docker.html">
@@ -309,7 +307,7 @@
             
         </li>
     
-        <li class="chapter " data-level="17" data-path="docs/node-teamcity-api.html">
+        <li class="chapter active" data-level="17" data-path="docs/node-teamcity-api.html">
             
                 
                     <a href="../docs/node-teamcity-api.html">
@@ -430,113 +428,156 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="internet-speedtest-docker">internet-speedtest-docker</h1>
-<p><strong><strong>Spoiler Alert</strong></strong></p>
-<p>This project won&apos;t help you with your connection, actually this project born when I need to monitoring the speed of my Internet, create a report to send to my ISP, so they can take some action. Using <strong>Docker Compose</strong> I put together three containers with the tools needed to monitoring and display the status of your Internet (and I know that tool can do more or can be better).</p>
-<p>Here in Brazil is a mess to contract a good ISP, they just don&apos;t deliver the speed they should for the users. Generally in a small business or a residence you can&apos;t pay for a very expensive plans where they certify the bandwidth delivered. So you have to call them many times complaining about the speed of your internet connection and always they will ask you to do that Internet Tests Online, such as <a href="http://www.speedtest.net" target="_blank">SpeedTest</a>, <a href="http://www.att.com/speedtest/" target="_blank">AT&amp;T SpeedTest</a>, <a href="http://testmy.net" target="_blank">TestMyNet</a>, most of these tests are based only on ICMP messages that don&apos;t reflect your real bandwidth at that time. Or even worse your ISP can allow all trafic ICMP so when you test it appears that you have a good speed but when you have to download some content you can&apos;t do it that well. There is much more to talk about it but I don&apos;t wanna spend so much time talking about the things that are wrong here.</p>
-<p align="center"><img src="https://dl.dropboxusercontent.com/s/l0py4zgi5izcbgw/Screen%20Shot%202017-02-27%20at%2023.55.16.png" Grafana"=""></p>
+                        <h1 id="node-js-teamcity-rest-api-library">Node.js TeamCity REST API Library</h1>
+<p>A Node.js API wrapper around the TeamCity RESTful API to make it easy to use.</p>
+<h2 id="installation">Installation</h2>
+<p>To use the library in Node.js, install it using npm:</p>
+<p><code>npm install teamcity-rest-api</code></p>
+<h2 id="api-style">API Style</h2>
+<p>This library has been writtne to support Node.js 4.x and native promises, 
+there are no callbacks from any of the functions.</p>
+<h1 id="examples">Examples</h1>
+<h2 id="creating-the-client">Creating the Client</h2>
+<p>You can instantiate the API client using the <code>create()</code> function with a
+<code>URL</code> or <code>configuration</code> object.</p>
+<p>If you use the <code>URL</code>, you will be connected to the <code>guest</code> RESTful API endpoints.
+This will require that you have guest access turned on in the TeamCity Server
+that you are connecting to. Note that not all endpoints are accessible
+via the <code>guest</code> API.</p>
+<h3 id="connecting-using-a-url">Connecting Using a URL</h3>
+<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;);
 
-<h2 id="running-container">Running container</h2>
-<p>The only requirement to run this compose is have Docker Compose installed, if you need to install you can <a href="https://docs.docker.com/compose/install/" target="_blank">click here</a> to check out how can you do that. After installed the only thing you need is export the variables that you like and configure the volume for persistent data, then run the compose as command available below:</p>
-<pre><code class="lang-console">$ git clone https://github.com/pedrocesar-ti/internet-speedtest-docker.git
-$ cd internet-speedtest-docker
-
-$ docker-compose up -d
+var client = teamcity.create(&apos;http://localhost:8111&apos;)
 </code></pre>
-<h2 id="docker-compose">Docker Compose</h2>
-<p>As you probably know Docker Compose is a tool to let you running a multi-container application, so as I sad before I put together some contaiers to make everything work together. They are described below:</p>
-<h3 id="influxdb-db">InfluxDB (DB)</h3>
-<p>InfluxDB is a database tool based on time-series, so every event is registrate with their timestamp. I decided to use InfluxDB at first because has great integration with Grafana and second I don&apos;t take cara about timestamp and how generate the graphs based on time.</p>
-<p align="center"><img src="https://dl.dropboxusercontent.com/s/u8urqvu85ob8zdn/Screen%20Shot%202017-02-28%20at%2000.03.36.png" InfluxDB"=""></p>
-
-<p>This project uses the official InfluxDB image hosted in the Docker Hub Library.</p>
-<p>You can edit or remove the volumes section of the docker-compose.yml file to reflect where you want you persistent data to live, or you can remove it if you like.   If you remove the volume mount you will lose all of your data if the container is removed.</p>
-<pre><code class="lang-docker-compose.yml">services:
-  db:
-    image: influxdb 
-    container_name: influxdb
-    volumes:
-      - &quot;/data/influxdb/:/var/lib/influxdb&quot;
-</code></pre>
-<p>You can customize some actions with variables listed below:</p>
-<table>
-<thead>
-<tr>
-<th>Variables</th>
-<th>Default</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>INFLUXDB_ADMIN_USER</strong></td>
-<td>admin</td>
-<td>Set root user for the database.</td>
-</tr>
-<tr>
-<td><strong>INFLUXDB_ADMIN_PASSWORD</strong></td>
-<td>password</td>
-<td>Set the password for the root user.</td>
-</tr>
-<tr>
-<td><strong>INFLUXDB_DB</strong></td>
-<td>speedtest</td>
-<td>Create a database <strong>speedtest</strong> when container starts.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="grafana-web">Grafana (Web)</h3>
-<p>Grafana is a tool to create and manage dashboards and graphs. It&apos;s a really cool tool and as I said earlier has a perfect integration with InfluxDB.</p>
-<p>When I started this project I used <a href="https://github.com/tutumcloud/grafana" target="_blank">tutumcloud/grafana</a> image, however they stopped to update grafana image beacause the new version has a different way to be installed, so it&apos;s deprecated. So I used <a href="https://hub.docker.com/r/grafana/grafana/" target="_blank">grafana</a> original image as a base system to generate my own image.</p>
-<p>You can also customize this image with few variables:</p>
-<table>
-<thead>
-<tr>
-<th>Variables</th>
-<th>Default</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>GF_SERVER_ROOT</strong></td>
-<td><a href="http://localhost" target="_blank">http://localhost</a></td>
-<td>Set URL to configure Grafana built-in web server.</td>
-</tr>
-<tr>
-<td><strong>GF_SECURITY_ADMIN_PASSWORD</strong></td>
-<td><strong>Default without password.</strong></td>
-<td>This is a password to access the Grafana Dashboard.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="speedtest-testing">SpeedTest (Testing)</h3>
-<p>This image was created to run a script that calls speedtest-cli to test the internet connect and save data on InfluxDB. <a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a> is a tool written in Python and is used to test your Internet connection based on donwload and upload some content from servers configured previously.</p>
-<p>The only variable to customize on this image is a variable to set the frequency that this script will run.</p>
-<table>
-<thead>
-<tr>
-<th>Variables</th>
-<th>Default</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>TIME_INTERVAL</strong></td>
-<td>600</td>
-<td>Time (in sec.) to set how long will sleep the script until run again.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="repositories-used-to">Repositories used to</h2>
+<h3 id="connecting-using-a-configuration-object">Connecting Using a Configuration Object</h3>
+<p>You must use the <code>configuration</code> object if you need to connect to the authenticated
+RESTful API endpoints. The <code>configuration</code> object allows you to pass in the
+username and password values.</p>
+<p>The <code>configuration</code> object can have a number of properties which consist of:</p>
 <ul>
-<li><a href="https://hub.docker.com/_/influxdb/" target="_blank">influxdb</a> </li>
-<li><a href="https://hub.docker.com/r/grafana/grafana/" target="_blank">Grafana</a></li>
-<li><a href="https://github.com/tutumcloud/grafana" target="_blank">tutumcloud/grafana</a></li>
-<li><a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a></li>
+<li><code>url</code> The full URL for the TeamCity server, e.g. <a href="http://teamcity.domain.com:8111" target="_blank">http://teamcity.domain.com:8111</a></li>
+<li><code>protocol</code> The protocol for the connection, e.g. http</li>
+<li><code>hostname</code> The hostname of the server, e.g. teamcity.domain.com</li>
+<li><code>port</code> The port for the TeamCity server, e.g. 8111</li>
+<li><code>username</code> The username if using authenticated endpoints</li>
+<li><code>password</code> The password for the user you are authenticating as</li>
 </ul>
-<p>Enjoy! :)</p>
+<p>You can specify a full <code>url</code> or the combination of <code>protocol</code>, <code>hostname</code> 
+and an optional <code>port</code> depending upon your needs. If you choose to provide a
+<code>url</code> along with any other parameters, the <code>url</code> will be used and the others
+ignored.</p>
+<p>If no authentication details are provided (<code>username</code> and <code>password</code>) the 
+connection to TeamCity will be performed as a guest. This will require
+guest access to be turned on in the TeamCity Server. If using guest access, 
+some API endpoints may be unavailable, based on the access settings of the TeamCity Server.</p>
+<p>User authentication details can be provided using <code>user</code> or <code>username</code> for the 
+username to connect as and <code>password</code> or <code>pass</code> for the password for the user. Both a 
+username and password must be provided for the API to attempt to connect with the 
+TeamCity server, otherwise it will fall back to using a guest connection.</p>
+<p>Connecting to the TeamCity server with a <code>url</code> parameter:</p>
+<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;);
+
+var client = teamcity.create({
+    url: &quot;http://localhost:8111&quot;,
+    username: &quot;user&quot;,
+    password: &quot;pass&quot;
+});
+</code></pre>
+<p>Connecting to the TeamCity server with a <code>protocol</code>, <code>hostname</code> and <code>port</code>:</p>
+<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;);
+
+var client = teamcity.create({
+    url: &quot;http://localhost:8111&quot;,
+    username: &quot;user&quot;,
+    password: &quot;pass&quot;
+});
+</code></pre>
+<h2 id="teamcity-version-numbers">TeamCity Version Numbers</h2>
+<p>The TeamCity Server has two version numbers that it can report once connected. These are available as a guest or an
+authenticated user.</p>
+<p>The two version numbers are that of the TeamCity Server software and the other being that of the RESTful API version.</p>
+<h3 id="getting-the-teamcity-version">Getting the TeamCity Version</h3>
+<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;)
+  , client = teamcity.create(&quot;http://localhost:8111&quot;)
+  ;
+
+client.getVersion()
+  .then(function(version) {
+    console.log(&quot;TeamCity Server version: &quot; + version);
+  })
+  .catch(function(err) {
+    console.error(err.message);
+  });
+</code></pre>
+<h3 id="teamcity-api-version">TeamCity API Version</h3>
+<p>The API version is a major.minor version number as a string that matches
+the version of TeamCity, e.g. for 9.1.4 it is &quot;9.1&quot;.</p>
+<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;)
+  , client = teamcity.create(&quot;http://localhost:8111&quot;)
+  ;
+
+client.getApiVersion()
+  .then(function(version) {
+    console.log(&quot;TeamCity Server version: &quot; + version);
+  })
+  .catch(function(err) {
+    console.error(err.message);
+  });
+</code></pre>
+<h2 id="projects">Projects</h2>
+<p>The API provides a <code>project</code> object for interacting with various Project
+related activities.</p>
+<h3 id="teamcity-projects-create-create-a-project">teamcity.projects.create - Create a Project</h3>
+<p>To create a project use the <code>client.projects.create()</code> function:</p>
+<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;)
+  , client = teamcity.create({
+    url: &quot;http://localhost:8111&quot;,
+    username: &quot;user&quot;,
+    password: &quot;pass&quot;
+  })
+  ;
+
+client.projects.create()
+  .then(function(project) {
+    console.log(JSON.stringify(project, null, 2));
+  })
+  .catch(function(err) {
+    console.error(err.message);
+  });
+</code></pre>
+<h2 id="builds">Builds</h2>
+<p>The API provides a <code>builds</code> object to interact with Build Configurations.</p>
+<h3 id="teamcity-builds-get-get-a-specific-build">teamcity.builds.get - Get a specific build</h3>
+<pre><code class="lang-js">client.builds.get({id: 100})
+  .then(function(build) {
+    console.log(build.state)
+  });
+</code></pre>
+<h3 id="teamcity-builds-getbybuildtypewithcount-and-getbyprojectwithcount-get-a-list-of-builds-for-a-configuration">teamcity.builds.getByBuildTypeWithCount and getByProjectWithCount - Get a list of builds for a configuration</h3>
+<p>These methods provide different ways to get a list of builds of a specific build configuration.
+To list builds by the name or ID of a build config, use <code>getByBuildTypeWithCount</code>.
+To list builds for a particular project, use <code>getByProjectWithCount</code>.
+Both of these methods do not apply default filtering from TeamCity, so you will get in-progress builds as well.</p>
+<pre><code class="lang-js">client.builds.getByBuildTypeWithCount({id: &quot;BuildConfigId&quot;}, {dimensions: {count:10}})
+  .then(function(buildList){
+    console.log(buildList.build[0]) //buildList.build is an array of builds, from most recent to the count parameter
+  });
+
+client.builds.getByProjectWithCount({name: &quot;TestBuildProject&quot;}, {dimensions: {count:10}})
+  .then(function(buildList){
+    console.log(buildList.build[0].id) //build id can be passed to builds.get for more detailed info
+  });
+</code></pre>
+<p>The TeamCity API documentation has more examples of dimensions that can be passed into these lookups.</p>
+<h3 id="teamcity-builds-startbuild-run-a-build-configuration">teamcity.builds.startBuild - Run a build configuration.</h3>
+<p>This method allows you to start a build configuration; It&apos;ll return the build number of the running build.</p>
+<pre><code class="lang-js">var buildNodeObject = &quot;<build> <buildType id="\&quot;TestConfigId\&quot;"> </buildType></build>&quot;
+client.builds.startBuild(buildNodeObject)
+  .then(function(buildStatus) {
+    console.log(buildStatus.id)
+  });
+</code></pre>
+<p>Refer to the TeamCity REST API documentation for more info on what can be passed as a buildNode.</p>
 
                     
                     </section>
@@ -547,10 +588,8 @@ $ docker-compose up -d
         </div>
 
         
-        <a href="../index.html" class="navigation navigation-prev " aria-label="Previous page: Introduction"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/jmeter-docker.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: jmeter-docker"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../docs/hubot-slack-docker.html" class="navigation navigation-next " aria-label="Next page: hubot-slack-docker"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
