@@ -14,3 +14,5 @@
 * [slate-docker](docs/slate-docker.md)
 * [puppet-br-certification](docs/puppet-br-certification.md)
 * [puppet-br](docs/puppet-br.org-octopress.md)
+* [jmeter-docker](docs/jmeter-docker.md)
+* [node-teamcity-api](docs/node-teamcity-api.md)
