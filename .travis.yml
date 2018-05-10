@@ -5,7 +5,7 @@ branches:
 node_js:
 - '0.10'
 before_install:
-- npm install gitbook-cli -g
+- npm install gitbook-cli@2.3.0 -g
 env:
   global:
   - GH_REF: github.com/pedrocesar-ti/pedrocesar-ti.github.io
