@@ -25,7 +25,7 @@ do
     if grep -q "docs/$FILE" "$SUMMARY"; then
         echo "$FILE OK!"
     else
-        if [ "$dir" == "$MAIN/" ]; then
+        if [ "$dir" == "$MAIN/" ] || [ "$dir" == "docs/" ] || [ "$dir" == "scripts/" ]; then
             echo "Directory NOT SUPPORTED"
         else
             BULLET=$(echo $dir | sed 's/\///')
