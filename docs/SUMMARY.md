@@ -16,5 +16,3 @@
 * [puppet-br](docs/puppet-br.org-octopress.md)
 * [jmeter-docker](docs/jmeter-docker.md)
 * [node-teamcity-api](docs/node-teamcity-api.md)
-* [docs](docs/docs.md)
-* [scripts](docs/scripts.md)
