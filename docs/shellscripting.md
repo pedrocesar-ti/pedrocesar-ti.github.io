@@ -1,3 +1,0 @@
-# shellscripting
-skdabpsdalsbdakjsda
-skdabpsdalsbdakjsda
