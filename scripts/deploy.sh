@@ -24,4 +24,3 @@ touch .
 git add -A .
 git commit -m "Documentation updated at ${TIMESTAMP} - ${REVISION}"
 git push -q upstream HEAD:master
-
