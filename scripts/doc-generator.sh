@@ -18,15 +18,15 @@ cd ..
 
 for dir in `ls -d */`
 do
-    echo "Sending $dir"
-    FILE=$(echo $dir | sed 's/\//\.md/')
-    cat $dir/README.md > $MAIN/docs/$FILE 2> /dev/null || cat $dir/README.markdown > $MAIN/docs/$FILE 2> /dev/null
-
-    if grep -q "docs/$FILE" "$SUMMARY"; then
-        echo "$FILE OK!"
+    if [ "$dir" == "$MAIN/" ] || [ "$dir" == "docs/" ] || [ "$dir" == "scripts/" ]; then
+        echo "Directory NOT SUPPORTED"
     else
-        if [ "$dir" == "$MAIN/" ] || [ "$dir" == "docs/" ] || [ "$dir" == "scripts/" ]; then
-            echo "Directory NOT SUPPORTED"
+        echo "Sending $dir"
+        FILE=$(echo $dir | sed 's/\//\.md/')
+        cat $dir/README.md > $MAIN/docs/$FILE 2> /dev/null || cat $dir/README.markdown > $MAIN/docs/$FILE 2> /dev/null
+
+        if grep -q "docs/$FILE" "$SUMMARY"; then
+            echo "$FILE OK!"
         else
             BULLET=$(echo $dir | sed 's/\///')
             echo "* [$BULLET](docs/$FILE)" >> $SUMMARY
