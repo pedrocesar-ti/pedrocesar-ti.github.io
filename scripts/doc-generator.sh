@@ -18,7 +18,7 @@ cd ..
 
 for dir in `ls -d */`
 do
-    if [ "$dir" == "$MAIN/" ] || [ "$dir" == "docs/" ] || [ "$dir" == "scripts/" ]; then
+    if [ "$dir" == "$MAIN/" ] || [ "$dir" == "docs/" ] || [ "$dir" == "scripts/" ] || [ "$dir" == "node_modules/" ]; then
         echo "Directory NOT SUPPORTED"
     else
         echo "Sending $dir"
