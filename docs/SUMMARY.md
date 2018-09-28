@@ -17,4 +17,3 @@
 * [puppet-br-certification](docs/puppet-br-certification.md)
 * [puppet-br](docs/puppet-br.org-octopress.md)
 * [node-teamcity-api](docs/node-teamcity-api.md)
-* [node_modules](docs/node_modules.md)
