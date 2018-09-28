@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>javascript-mean-docker | Pedro César de Azevedo!</title>
+        <title>erp-service | Pedro César de Azevedo!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../docs/jenkins-docker-slave.html" />
+    <link rel="next" href="../docs/github.html" />
     
     
-    <link rel="prev" href="../docs/my-alexa-skills.html" />
+    <link rel="prev" href="../docs/devops-academy.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="9" data-basepath=".." data-revision="Fri Sep 28 2018 21:20:11 GMT+0000 (UTC)">
+    <div class="book" data-level="19" data-basepath=".." data-revision="Fri Sep 28 2018 21:20:11 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -189,7 +189,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="9" data-path="docs/javascript-mean-docker.html">
+        <li class="chapter " data-level="9" data-path="docs/javascript-mean-docker.html">
             
                 
                     <a href="../docs/javascript-mean-docker.html">
@@ -339,7 +339,7 @@
             
         </li>
     
-        <li class="chapter " data-level="19" data-path="docs/erp-service.html">
+        <li class="chapter active" data-level="19" data-path="docs/erp-service.html">
             
                 
                     <a href="../docs/erp-service.html">
@@ -505,8 +505,131 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="node-project-talk">node-project-talk</h1>
-<p>This a repository created to store code used during node talk presentation. </p>
+                        <h2 id="project-erp-system">Project ERP System</h2>
+<p>This is microservice implementation of a basic ERP system. </p>
+<h2 id="getting-started">Getting started</h2>
+<p>After cloning the repository :</p>
+<pre><code class="lang-bash">    git clone https://github.com/esna-security/simense-erp-service.git
+    cd simense-erp-service
+</code></pre>
+<p>to quickly get started and initialize the development environment, use the project runner command :</p>
+<pre><code class="lang-bash">    ./runner.sh init
+</code></pre>
+<p>which will install its dependencies (including a PostgreSQL docker container)</p>
+<p>Then use runner command:</p>
+<pre><code class="lang-bash">   ./runner.sh dev
+</code></pre>
+<p>Or you can start dev runner with loading the test data:</p>
+<pre><code class="lang-bash">   ./runner.sh dev loadData
+</code></pre>
+<p>and immediately give you access to <a href="http://localhost:8080/swagger-ui.html" target="_blank">the api</a> in development mode.</p>
+<p>Also you can run tests with runner command:</p>
+<pre><code class="lang-bash">   ./runner.sh test
+</code></pre>
+<h3 id="application-configuration">Application configuration</h3>
+<p>The application is currently configured for the following environments : dev, test, prod. </p>
+<p>For dev/test environments configuration are specified in resources.</p>
+<p>For prod environment you should create file <code>processor.properties</code> on the file system and specify a path to directory during start the application.
+For example <code>-Dprop.path=/DATA/config/</code></p>
+<p>IMPORTANT: all properties can be overloaded via the system variables. For example <code>server.port</code> can be overloaded by the system variable <code>SERVER_PORT</code></p>
+<h3 id="properties">Properties</h3>
+<p>Application properties</p>
+<pre><code class="lang-properties">server.port=8080
+prop.path=... #path to properties on the file system
+</code></pre>
+<p>Jwt properties</p>
+<pre><code class="lang-properties">security.jwt.uri=/v1/auth/**
+security.jwt.header=Authorization
+security.jwt.prefix=Bearer 
+security.jwt.expiration=...
+security.jwt.secret=...
+security.jwt.admin.password=...
+</code></pre>
+<p>PostgreSQL properties</p>
+<pre><code class="lang-properties">spring.datasource.url=jdbc:postgresql://localhost:5432/assets-dev   // this is database connection url
+spring.datasource.username=assets                                   // this is the username for postgresql
+spring.datasource.password=12345                                    // this is the password for db
+spring.jpa.hibernate.ddl-auto=create                                // this property means if no table is existed the one will be created
+spring.jpa.database=postgresql                                      // initialisation db
+</code></pre>
+<h3 id="logging">Logging</h3>
+<p>You can override the default application logging. If you want to do this, you should create(or use existing logback.xml configuration file)
+then add the environment variable <code>LOGGING_CONFIG</code> with value a path to logback configuration file.
+For AWS CloudWatch you can set <code>LOGGING_CONFIG</code> with value <code>classpath:logback-aws.xml</code> but you should configure it with you data(see <a href="https://github.com/j256/cloudwatch-logback-appender" target="_blank">docs</a>).
+This file is located <code>core/src/main/resources/logback-aws.xml</code>. </p>
+<p>Important: Logback configuration supports the environment variables inside the file.</p>
+<p>If you want to add the file appender just specify the environment variable <code>LOG_FILE</code>. For example <code>export LOG_FILE=./logs/erp.log</code></p>
+<p>Logback configuration example:</p>
+<pre><code class="lang-xml"><?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_FILE" value="./logs/erp.log">  <!-- path to log file-->
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"> <!-- base spring logback configuration CONSOLE/FILE appender-->
+
+    <logger name="org.springframework.web" level="INFO">
+    <logger name="com.erp" level="DEBUG">
+</logger></logger></include></property></configuration>
+</code></pre>
+<h3 id="postgresql-docker">PostgreSQL docker</h3>
+<p>PostgreSQL is dockerized. You can see it by the following path <code>docker/postgres</code>. 
+See the default environment variables by the path <code>docker/postgres/env.postgres</code>. 
+And see the initial sql script <code>docker/postgres/init.sql</code></p>
+<pre><code>POSTGRES_USER: assets                   // postgres user name
+POSTGRES_PASSWORD: 12345                // postgres password
+</code></pre><p>Also, please look at the docker-compose file <code>docker/docker-compose</code>.
+If you want to change some properties, remember that this values are used in the application, 
+so you also need to change values in the application.</p>
+<h2 id="workflow">Workflow</h2>
+<p>To use the application API you must be authorized.</p>
+<p>Application provides base credentials authentication via password that are defined in properties. 
+Property <code>security.jwt.admin.password</code> is responsible for the authentication. The default password(for dev environment) is <code>pass</code></p>
+<h3 id="authentication-workflow">Authentication workflow</h3>
+<p>Do <code>POST</code> call API <code>{host:port}/v1/auth</code> with body:</p>
+<pre><code class="lang-json">{
+  &quot;password&quot;: &quot;...&quot;
+}
+</code></pre>
+<p>if password is matched then jwt token will be returned with expiration(in seconds) in response:</p>
+<pre><code class="lang-json">{
+  &quot;token&quot;: &quot;....&quot;,
+  &quot;expiration&quot;: 1000
+}
+</code></pre>
+<p>Then the header with composite value <code>{prefix}token</code> should be added to each API call. Header is defined in property <code>security.jwt.header</code>. 
+Prefix that is also defined in property <code>security.jwt.prefix</code>.
+For example there are properties:</p>
+<pre><code class="lang-properties">security.jwt.header=Authorization
+security.jwt.prefix=Bearer
+</code></pre>
+<p>API call should be done with header <code>Authorization</code> and with value <code>Bearer token</code></p>
+<h2 id="local-development">Local development</h2>
+<h3 id="running-the-service-with-development-profile">Running the service with development profile</h3>
+<p>running the application with development profile :</p>
+<pre><code class="lang-bash">    ./gradlew :core:bootRun -Dspring.profiles.active=dev --no-daemon
+</code></pre>
+<p>running the application with development profile and load test data :</p>
+<pre><code class="lang-bash">    ./gradlew :core:bootRun -Dspring.profiles.active=dev -DloadData=true --no-daemon
+</code></pre>
+<h3 id="running-the-service-tests">Running the service tests</h3>
+<p>The service is covered with unit, integration and full BDD tests</p>
+<p>running unit tests :</p>
+<pre><code class="lang-bash">   ./gradlew :core:test --no-daemon
+</code></pre>
+<p>running integration tests:</p>
+<pre><code class="lang-bash">   ./gradlew :integration-test:test --no-daemon
+</code></pre>
+<p>running the tests (all tests: unit tests and integration tests):</p>
+<pre><code class="lang-bash">   ./gradlew test --no-daemon
+</code></pre>
+<h2 id="release-management">Release management</h2>
+<h2 id="api-documentation">Api Documentation</h2>
+<p>A swagger api documentation is available through visiting the documentation url at :</p>
+<pre><code>{host:port}/swagger-ui.html 
+</code></pre><h2 id="hal-browser">HAL Browser</h2>
+<p>A HAL browser is available through visiting the documentation url at :</p>
+<pre><code>{host:port}/browser/index.html#/
+</code></pre><p>You must be authorized to use HAL browser API. Check <code>Authentication workflow</code></p>
 
                     
                     </section>
@@ -517,10 +640,10 @@
         </div>
 
         
-        <a href="../docs/my-alexa-skills.html" class="navigation navigation-prev " aria-label="Previous page: my-alexa-skills"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/devops-academy.html" class="navigation navigation-prev " aria-label="Previous page: devops-academy"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../docs/jenkins-docker-slave.html" class="navigation navigation-next " aria-label="Next page: jenkins-docker-slave"><i class="fa fa-angle-right"></i></a>
+        <a href="../docs/github.html" class="navigation navigation-next " aria-label="Next page: github"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
