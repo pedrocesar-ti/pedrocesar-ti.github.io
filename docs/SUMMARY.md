@@ -21,3 +21,4 @@
 * [github](docs/github.md)
 * [platform-samples](docs/platform-samples.md)
 * [quicktest_curriculum](docs/quicktest_curriculum.md)
+* [Xenv-jenkins-lib](docs/Xenv-jenkins-lib.md)
