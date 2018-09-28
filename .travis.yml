@@ -3,7 +3,7 @@ branches:
   only:
   - gh-pages
 node_js:
-- '0.10'
+- '6.14'
 before_install:
 - npm install gitbook-cli@2.3.0 -g
 env:
