@@ -16,3 +16,8 @@
 * [puppet-br](docs/puppet-br.org-octopress.md)
 * [jmeter-docker](docs/jmeter-docker.md)
 * [node-teamcity-api](docs/node-teamcity-api.md)
+* [devops-academy](docs/devops-academy.md)
+* [erp-service](docs/erp-service.md)
+* [github](docs/github.md)
+* [platform-samples](docs/platform-samples.md)
+* [quicktest_curriculum](docs/quicktest_curriculum.md)
