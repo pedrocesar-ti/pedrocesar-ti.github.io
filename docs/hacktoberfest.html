@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Xenv-jenkins-lib | Pedro César de Azevedo!</title>
+        <title>hacktoberfest | Pedro César de Azevedo!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,8 @@
         
     
     
-    <link rel="next" href="../docs/hubot-slack-docker.html" />
     
-    
-    <link rel="prev" href="../docs/internet-speedtest-docker.html" />
+    <link rel="prev" href="../docs/distributed-jmeter-docker.html" />
     
 
         
@@ -38,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="2" data-basepath=".." data-revision="Sat Oct 20 2018 07:03:56 GMT+0000 (UTC)">
+    <div class="book" data-level="21" data-basepath=".." data-revision="Sat Oct 20 2018 07:03:56 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -84,7 +82,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2" data-path="docs/Xenv-jenkins-lib.html">
+        <li class="chapter " data-level="2" data-path="docs/Xenv-jenkins-lib.html">
             
                 
                     <a href="../docs/Xenv-jenkins-lib.html">
@@ -369,7 +367,7 @@
             
         </li>
     
-        <li class="chapter " data-level="21" data-path="docs/hacktoberfest.html">
+        <li class="chapter active" data-level="21" data-path="docs/hacktoberfest.html">
             
                 
                     <a href="../docs/hacktoberfest.html">
@@ -490,91 +488,112 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="xenv-jenkins-lib">Xenv-jenkins-lib</h1>
-<p>For those who are:</p>
-<ol>
-<li>Sick managing different versions of NodeJS, Python or Ruby in your Jenkins Pipelines</li>
-<li>Struggling getting NVM, RVM and virtualenv working in your pipeline</li>
-<li>Or just having a bad time setting up a bunch of plugins</li>
-</ol>
-<p>I HAVE EXCITING NEWS FOR YOU!!! </p>
-<p>Using the power of:</p>
+                        <h1 id="%F0%9F%8E%83-hacktoberfest-starter-project-%F0%9F%8E%83">&#x1F383; HacktoberFest Starter Project &#x1F383;</h1>
+<p><strong> <strong>Oct 24th Update:</strong> THIS REPO IS TEMPORARILY <strong>NOT MERGING NEW PRs</strong> until the CONTRIBUTORS.md file is sorted! Thanks for your patience! </strong></p>
+<p>Use this project to make your first contribution to an open source project on GitHub. Practice making your first pull request to a public repository before doing the real thing!</p>
+<p>Celebrate <a href="https://hacktoberfest.digitalocean.com/" target="_blank">Hacktoberfest</a> by getting involved in the open source community by completing some simple tasks in this project.</p>
+<p>This repository is open to all members of the GitHub community. Any member may contribute to this project without being a collaborator.</p>
+<p><a href="https://alicewonderland.github.io/hacktoberfest/" target="_blank">https://alicewonderland.github.io/hacktoberfest/</a></p>
+<h2 id="what-is-hacktoberfest">What is Hacktoberfest?</h2>
+<p>A month-long celebration from October 1st - 31st sponsored by <a href="https://hacktoberfest.digitalocean.com/" target="_blank">Digital Ocean</a> and <a href="https://github.com/blog/2433-celebrate-open-source-this-october-with-hacktoberfest" target="_blank">GitHub</a> to get people involved in <a href="https://github.com/open-source" target="_blank">Open Source</a>. Create your very first pull request to any public repository on GitHub and contribute to the open source developer community.</p>
+<p><a href="https://hacktoberfest.digitalocean.com/" target="_blank">https://hacktoberfest.digitalocean.com/</a></p>
+<h2 id="how-to-contribute-to-this-project">How to contribute to this project</h2>
+<p>Here are 3 quick and painless ways to contribute to this project:</p>
 <ul>
-<li><a href="https://jenkins.io/doc/book/pipeline/shared-libraries/" target="_blank">Jenkins Shared Libraries</a></li>
-<li><a href="https://github.com/nodenv/nodenv" target="_blank">nodenv</a></li>
-<li><a href="https://github.com/pyenv/pyenv" target="_blank">pyenv</a></li>
-<li><a href="https://github.com/rbenv/rbenv" target="_blank">rbenv</a></li>
+<li>Add your name to the <code>CONTRIBUTORS.md</code> file</li>
+<li>Add a profile page to the <code>profiles</code> directory</li>
+<li>Create a simple &quot;Hello, World&quot; script in a language of your choice</li>
 </ul>
-<p>I created this small library that allow you to import to your pipeline  methods that do all the heavy lifting on installing the tools and different versions of NodeJS, Ruby and Python (like meta-runners).</p>
-<p>The main goal is something simple like this:</p>
-<pre><code class="lang-groovy">script {
-    withNodenv(&apos;0.12.14&apos;) {
-      sh &quot;node --version&quot;     \\ Output:  v0.12.14
-    }
-}
+<p>Choose one or all 3, make a pull request for your work and wait for it to be merged!</p>
+<h2 id="getting-started">Getting started</h2>
+<ul>
+<li>Fork this repository (Click the Fork button in the top right of this page, click your Profile Image)</li>
+<li>Clone your fork down to your local machine</li>
+</ul>
+<pre><code class="lang-markdown">git clone https://github.com/your-username/hacktoberfest.git
 </code></pre>
-<p>Have a look on some <a href="examples">Examples</a>.</p>
-<h3 id="-installing">&quot;Installing&quot;</h3>
-<p>You have couple options to import the module and start using you can import dinamically on each of your pipelines or you can import globally in your Jenkins server and all pipelines can import just as a single <code>Library</code>.</p>
-<h4 id="importing-dynamically">Importing dynamically</h4>
-<p>You can dynamically import the library adding this snippet at the beginning of your Jenkins file:</p>
-<pre><code class="lang-groovy">library identifier: &apos;xenv-jenkins-lib@master&apos;, 
-        retriever: modernSCM([$class: &apos;GitSCMSource&apos;, 
-        remote: &apos;https://github.com/pedrocesar-ti/Xenv-jenkins-lib.git&apos;])
+<ul>
+<li>Create a branch</li>
+</ul>
+<pre><code class="lang-markdown">git checkout -b branch-name
 </code></pre>
-<h4 id="importing-via-global-configuration">Importing via Global Configuration</h4>
-<p>With the <a href="https://jenkins.io/doc/book/pipeline/shared-libraries/#global-shared-libraries" target="_blank">Global Shared Libraries</a>, we can basically import this lib globaly to be used in any pipeline. </p>
-<p align="center"><img src="https://dl.dropboxusercontent.com/s/c74sr7mqgyqoo9x/Screen%20Shot%202018-09-23%20at%207.04.52%20AM.png" Jenkins="" Global"=""></p>
+<ul>
+<li>Make your changes (choose from any task below)</li>
+<li>Commit and push</li>
+</ul>
+<pre><code class="lang-markdown">git add .
+git commit -m &apos;Commit message&apos;
+git push origin branch-name
+</code></pre>
+<ul>
+<li>Create a new pull request from your forked repository (Click the <code>New Pull Request</code> button located at the top of your repo)</li>
+<li>Wait for your PR review and merge approval!</li>
+<li><strong>Star this repository</strong> if you had fun!</li>
+</ul>
+<h2 id="choose-from-these-tasks">Choose from these tasks</h2>
+<h3 id="1-add-your-name">1. Add your name</h3>
+<p>Add your name to the <code>CONTRIBUTORS.md</code> file using the below convention:</p>
+<pre><code class="lang-markdown">#### Name: [YOUR NAME](GitHub link)
+- Place: City, State, Country
+- Bio: Who are you?
+- GitHub: [GitHub account name](GitHub link)
+</code></pre>
+<h3 id="2-add-a-profile-page">2. Add a profile page</h3>
+<p>Add a <code>Your_Name.md</code> file to the <code>profiles</code> directory. Use any combination of content and Markdown you&apos;d like. Here is an example:</p>
+<pre><code class="lang-markdown"># Your Name
 
-<p>On your <em>Jenkinsfile</em> you only need:</p>
-<pre><code class="lang-groovy">@Library(&apos;xenv-jenkins-lib&apos;) _
+### Location
+
+Your City/Country
+
+### Academics
+
+Your School
+
+### Interests
+
+- Some Things You Like
+
+### Development
+
+- Inventor of the My Pillow
+
+### Projects
+
+- [My Project](GitHub Link) Short Description
+
+### Profile Link
+
+[Your Name](GitHub Link)
 </code></pre>
-<h3 id="using">Using</h3>
-<p>Please have a look in the <a href="examples">examples</a> folder to see how to use the methods exported by this lib.</p>
-<h4 id="withnodenv-version-method">withNodenv(version, method)</h4>
+<h3 id="3-create-a-hello-world-script">3. Create a <code>Hello, World!</code> Script</h3>
+<p>Add a <code>hello_world_yourusername.xx</code> script to the <code>scripts</code> directory in any language of your choice! Here is an example:</p>
+<pre><code class="lang-Javascript">// LANGUAGE: Javascript
+// ENV: Node.js
+// AUTHOR: Alice Chuang
+// GITHUB: https://github.com/AliceWonderland
+
+console.log(&apos;Hello, World!&apos;);
+</code></pre>
+<p>Name the file <code>hello_world_yourusername.xx</code>. e.g., <code>hello_world_alicewonderland.js</code> or <code>hello_world_alicewonderland.py</code>.</p>
+<p>Don&apos;t forget to include the comments as seen above. Feel free to include additional information about the language you choose in your comments too! Like a link to a helpful introduction or tutorial. </p>
+<p>Here is my <code>hello_world</code> example: <a href="https://github.com/AliceWonderland/hacktoberfest/blob/master/scripts/hello_world_alicewonderland.js" target="_blank">hello_world_alicewonderland.js</a></p>
+<h2 id="bonus">BONUS!</h2>
 <ul>
-<li><em>version</em> is going to specify what version of NodeJS you want to run your code, default version is <em>6.14.4</em>.</li>
-<li><em>method</em> is going to define if the version should be deleted (clean) after used, the default method is to keep the installed versions, so you don&apos;t need to re-install every time.</li>
+<li>See profiles submitted by fellow coders from around the globe ... from Kathmandu to Copenhagen.</li>
+<li>Discover some obscure to new and trending languages ... from BrainFuck to Groovy.</li>
+<li>Check out some very creative ways to print out a &quot;Hello, World!&quot; string.</li>
 </ul>
-<pre><code class="lang-groovy">  script {
-    withNodenv.purgeAll(&apos;nodenv&apos;)
-    withNodenv(&apos;6.14.4&apos;, &apos;clean&apos;) {
-      sh &quot;node --version&quot;    // v6.14.4
-    }
-  }
-</code></pre>
-<blockquote>
-<p>withNodenv.purgeAll(&apos;nodenv&apos;) - this method helps deleting all versions of NodeJS.</p>
-</blockquote>
-<h4 id="withpyenv-version-method">withPyenv(version, method)</h4>
-<ul>
-<li><em>version</em> is going to specify what version of Python you want to run your code, default Python version is <em>3.7.0</em>.</li>
-<li><em>method</em> is going to define if the version should be deleted (clean) after used, the default method is to keep the installed versions, so you don&apos;t need to re-install every time.</li>
-</ul>
-<pre><code class="lang-groovy">  script {
-    withPyenv() {
-      sh &quot;python --version&quot;    // Python 3.7.0
-    }
-  }
-</code></pre>
-<blockquote>
-<p>withPyenv.purgeAll(&apos;pyenv&apos;) - this method helps deleting all versions of Python.</p>
-</blockquote>
-<h4 id="withrbenv-version-method">withRbenv(version, method)</h4>
-<ul>
-<li><em>version</em> is going to specify what version of Ruby you want to run your code, default Ruby version is <em>2.5.1</em>.</li>
-<li><em>method</em> is going to define if the version should be deleted (clean) after used, the default method is to keep the installed versions, so you don&apos;t need to re-install every time.</li>
-</ul>
-<pre><code class="lang-groovy">  script {
-    withRbenv(&apos;2.3.0&apos;) {
-      sh &quot;ruby --version&quot;    // ruby 2.3.0p0
-    }
-  }
-</code></pre>
-<blockquote>
-<p>withRbenv.purgeAll(&apos;rbenv&apos;) - this method helps deleting all versions of Ruby.</p>
-</blockquote>
-<p>Enjoy! :)</p>
+<h2 id="reference-links">Reference links</h2>
+<p>Here is a great tutorial for creating your first pull request by <a href="https://github.com/Roshanjossey" target="_blank">Roshan Jossey</a>:
+<a href="https://github.com/Roshanjossey/first-contributions" target="_blank">https://github.com/Roshanjossey/first-contributions</a></p>
+<p>Managing your Forked Repo: <a href="https://help.github.com/articles/fork-a-repo/" target="_blank">https://help.github.com/articles/fork-a-repo/</a></p>
+<p>Syncing a Fork: <a href="https://help.github.com/articles/syncing-a-fork/" target="_blank">https://help.github.com/articles/syncing-a-fork/</a></p>
+<p>Keep Your Fork Synced: <a href="https://gist.github.com/CristinaSolana/1885435" target="_blank">https://gist.github.com/CristinaSolana/1885435</a></p>
+<p>Checkout this list for README examples - Awesome README <a href="https://github.com/sindresorhus/awesome" target="_blank"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome"></a></p>
+<p>Github-Flavored Markdown <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">https://guides.github.com/features/mastering-markdown/</a></p>
+<h2 id="additional-references-added-by-contributors">Additional references added by contributors</h2>
+<p>GitHub license explained <a href="https://choosealicense.com" target="_blank">https://choosealicense.com</a></p>
 
                     
                     </section>
@@ -585,10 +604,8 @@
         </div>
 
         
-        <a href="../docs/internet-speedtest-docker.html" class="navigation navigation-prev " aria-label="Previous page: internet-speedtest-docker"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/distributed-jmeter-docker.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: distributed-jmeter-docker"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../docs/hubot-slack-docker.html" class="navigation navigation-next " aria-label="Next page: hubot-slack-docker"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
