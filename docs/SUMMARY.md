@@ -19,4 +19,3 @@
 * [node-teamcity-api](docs/node-teamcity-api.md)
 * [charts](docs/charts.md)
 * [distributed-jmeter-docker](docs/distributed-jmeter-docker.md)
-* [hacktoberfest](docs/hacktoberfest.md)
