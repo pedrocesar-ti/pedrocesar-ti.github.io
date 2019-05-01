@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>slate-docker | Pedro César de Azevedo!</title>
+        <title>charts | Pedro César de Azevedo!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../docs/puppet-br-certification.html" />
+    <link rel="next" href="../docs/distributed-jmeter-docker.html" />
     
     
-    <link rel="prev" href="../docs/janky-docker.html" />
+    <link rel="prev" href="../docs/node-teamcity-api.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="15" data-basepath=".." data-revision="Wed May 01 2019 10:38:38 GMT+0000 (UTC)">
+    <div class="book" data-level="19" data-basepath=".." data-revision="Wed May 01 2019 10:38:38 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -279,7 +279,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="15" data-path="docs/slate-docker.html">
+        <li class="chapter " data-level="15" data-path="docs/slate-docker.html">
             
                 
                     <a href="../docs/slate-docker.html">
@@ -339,7 +339,7 @@
             
         </li>
     
-        <li class="chapter " data-level="19" data-path="docs/charts.html">
+        <li class="chapter active" data-level="19" data-path="docs/charts.html">
             
                 
                     <a href="../docs/charts.html">
@@ -475,31 +475,68 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="slate-docker">slate-docker</h1>
-<p>Repository to create a container with Docker to serve a API documentation using <a href="https://github.com/tripit/slate" target="_blank">Slate</a>. The main idea here is you keep your documentation in a <strong>private repository</strong> and clone inside this project to run you own documentation with two commands. </p>
-<h2 id="technologies">Technologies</h2>
+                        <h1 id="helm-charts">Helm Charts</h1>
+<p>Use this repository to submit official Charts for Helm. Charts are curated application definitions for Helm. For more information about installing and using Helm, see its
+<a href="https://github.com/helm/helm/tree/master/README.md" target="_blank">README.md</a>. To get a quick introduction to Charts see this <a href="https://github.com/helm/helm/blob/master/docs/charts.md" target="_blank">chart document</a>.</p>
+<h2 id="where-to-find-us">Where to find us</h2>
+<p>For general Helm Chart discussions join the Helm Charts (#charts) room in the <a href="http://slack.kubernetes.io/" target="_blank">Kubernetes</a>.</p>
+<p>For issues and support for Helm and Charts see <a href="CONTRIBUTING.md#support-channels">Support Channels</a>.</p>
+<h2 id="how-do-i-install-these-charts">How do I install these charts?</h2>
+<p>Just <code>helm install stable/<chart></chart></code>. This is the default repository for Helm which is located at <a href="https://kubernetes-charts.storage.googleapis.com/" target="_blank">https://kubernetes-charts.storage.googleapis.com/</a> and is installed by default.</p>
+<p>For more information on using Helm, refer to the <a href="https://github.com/kubernetes/helm#docs" target="_blank">Helm&apos;s documentation</a>.</p>
+<h2 id="how-do-i-enable-the-incubator-repository">How do I enable the Incubator repository?</h2>
+<p>To add the Incubator charts for your local client, run <code>helm repo add</code>:</p>
+<pre><code>$ helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
+&quot;incubator&quot; has been added to your repositories
+</code></pre><p>You can then run <code>helm search incubator</code> to see the charts.</p>
+<h2 id="chart-format">Chart Format</h2>
+<p>Take a look at the <a href="https://github.com/helm/helm/tree/master/docs/examples/alpine" target="_blank">alpine example chart</a> and the <a href="https://github.com/helm/helm/tree/master/docs/examples/nginx" target="_blank">nginx example chart</a> for reference when you&apos;re writing your first few charts.</p>
+<p>Before contributing a Chart, become familiar with the format. Note that the project is still under active development and the format may still evolve a bit.</p>
+<h2 id="repository-structure">Repository Structure</h2>
+<p>This GitHub repository contains the source for the packaged and versioned charts released in the <a href="https://console.cloud.google.com/storage/browser/kubernetes-charts/" target="_blank"><code>gs://kubernetes-charts</code> Google Storage bucket</a> (the Chart Repository).</p>
+<p>The Charts in the <code>stable/</code> directory in the master branch of this repository match the latest packaged Chart in the Chart Repository, though there may be previous versions of a Chart available in that Chart Repository.</p>
+<p>The purpose of this repository is to provide a place for maintaining and contributing official Charts, with CI processes in place for managing the releasing of Charts into the Chart Repository.</p>
+<p>The Charts in this repository are organized into two folders:</p>
 <ul>
-<li><p><strong>Git</strong> &#x2014; Using git to create a repository and version control for all code developed. I used a private (with all my internal documentation) and a public repository to deploy this container. This Github repository have integration with Dockerhub for every push in the <em>master</em> branch create a new build in Dockerhub repository.</p>
-</li>
-<li><p><strong>Docker Containers</strong> &#x2014; The idea was delivery a web application as a final product. So using Docker I create a new image on Dockerhub that configures all stuff needed to run this application.</p>
-</li>
-<li><p><strong>Write code samples in multiple languages</strong> &#x2014; If your API has bindings in multiple programming languages, you can easily put in tabs to switch between them. In your document, you&apos;ll distinguish different languages by specifying the language name at the top of each code block, just like with <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Github Flavored Markdown</a>.</p>
-</li>
+<li>stable</li>
+<li>incubator</li>
 </ul>
-<h2 id="running-the-container">Running the Container</h2>
-<pre><code class="lang-shell">docker run -p 4567:4567 -v /absolute/path/for/your/doc/source:/app/slate/source -d pedrocesarti/slate-docker
-</code></pre>
-<p>or if you don&apos;t have any documentation.</p>
-<pre><code class="lang-shell">git clone --recursive https://github.com/pedrocesar-ti/slate-docker.git
-cd slate-docker
-docker run -p 4567:4567 -v $(pwd)/slate/source:/app/slate/source -d pedrocesarti/slate-docker
-</code></pre>
-<h2 id="repositories-used-to">Repositories used to </h2>
+<p>Stable Charts meet the criteria in the <a href="CONTRIBUTING.md#technical-requirements">technical requirements</a>.</p>
+<p>Incubator Charts are those that do not meet these criteria. Having the incubator folder allows charts to be shared and improved on until they are ready to be moved into the stable folder. The charts in the <code>incubator/</code> directory can be found in the <a href="https://console.cloud.google.com/storage/browser/kubernetes-charts-incubator" target="_blank"><code>gs://kubernetes-charts-incubator</code> Google Storage Bucket</a>.</p>
+<p>In order to get a Chart from incubator to stable, Chart maintainers should open a pull request that moves the chart folder.</p>
+<h2 id="contributing-a-chart">Contributing a Chart</h2>
+<p>We&apos;d love for you to contribute a Chart that provides a useful application or service for Kubernetes. Please read our <a href="CONTRIBUTING.md">Contribution Guide</a> for more information on how you can contribute Charts.</p>
+<p>Note: We use the same <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/development.md#workflow" target="_blank">workflow</a>,
+<a href="LICENSE">License</a> and <a href="CONTRIBUTING.md">Contributor License Agreement</a> as the main Kubernetes repository.</p>
+<h2 id="owning-and-maintaining-a-chart">Owning and Maintaining A Chart</h2>
+<p>Individual charts can be maintained by one or more members of the Kubernetes community. When someone maintains a chart they have the access to merge changes to that chart. To have merge access to a chart someone needs to:</p>
+<ol>
+<li>Be listed on the chart, in the <code>Chart.yaml</code> file, as a maintainer. If you need sponsors and have contributed to the chart, please reach out to the existing maintainers, or if you are having trouble connecting with them, please reach out to one of the <a href="OWNERS">OWNERS</a> of the charts repository.</li>
+<li>Be invited (and accept your invite) as a read-only collaborator on <a href="https://github.com/helm/charts" target="_blank">this repo</a>. This is required for @k8s-ci-robot <a href="https://github.com/kubernetes/community/blob/master/contributors/guide/pull-requests.md" target="_blank">PR comment interaction</a>.</li>
+<li>An OWNERS file needs to be added to a chart. That OWNERS file should list the maintainers&apos; GitHub login names for both the reviewers and approvers sections. For an example see the <a href="stable/drupal/OWNERS">Drupal chart</a>. The <code>OWNERS</code> file should also be appended to the <code>.helmignore</code> file.</li>
+</ol>
+<p>Once these two steps are done a chart approver can merge pull requests following the directions in the <a href="REVIEW_GUIDELINES.md">REVIEW_GUIDELINES.md</a> file.</p>
+<h2 id="trusted-collaborator">Trusted Collaborator</h2>
+<p>The <code>pull-charts-e2e</code> test run, that installs a chart to test it, is required before a pull request can be merged. These tests run automatically for members of the Helm Org and for chart OWNERS, listed in OWNERS files. For regular contributors who are trusted, in a manner similar to Kubernetes community members, we have trusted collaborators. These individuals can have their tests run automatically as well as mark other pull requests as ok to test by adding a comment of <code>/ok-to-test</code> on pull requests.</p>
+<p>There are two paths to becoming a trusted collaborator. One only needs follow one of them.</p>
+<ol>
+<li>If you are a Kubernetes GitHub org member and have your Kubernetes org membership public you can become a trusted collaborator for Helm Charts</li>
+<li>Get sponsorship from one of the Charts Maintainers listed in the OWNERS file at the root of this repository</li>
+</ol>
+<p>The process to get added is:</p>
 <ul>
-<li><a href="https://github.com/tripit/slate" target="_blank">Slate</a></li>
-<li><a href="https://github.com/tutumcloud/slate" target="_blank">Docker Slate</a></li>
-<li><a href="https://github.com/tcnksm/dockerfile-rbenv" target="_blank">Docker RBENV</a></li>
+<li>File an issue asking to be a trusted collaborator</li>
+<li>A Helm Chart Maintainer can then add the user as a read only collaborator to the repository</li>
 </ul>
+<h2 id="review-process">Review Process</h2>
+<p>For information related to the review procedure used by the Chart repository maintainers, see <a href="CONTRIBUTING.md#merge-approval-and-release-process">Merge approval and release process</a>.</p>
+<h3 id="stale-pull-requests-and-issues">Stale Pull Requests and Issues</h3>
+<p>Pull Requests and Issues that have no activity for 30 days automatically become stale. After 30 days of being stale, without activity, they become rotten. Pull Requests and Issues can rot for 30 days and then they are automatically closed. This is the standard stale process handling for all repositories on the Kubernetes GitHub organization.</p>
+<h2 id="supported-kubernetes-versions">Supported Kubernetes Versions</h2>
+<p>This chart repository supports the latest and previous minor versions of Kubernetes. For example, if the latest minor release of Kubernetes is 1.8 then 1.7 and 1.8 are supported. Charts may still work on previous versions of Kubernertes even though they are outside the target supported window.</p>
+<p>To provide that support the API versions of objects should be those that work for both the latest minor release and the previous one.</p>
+<h2 id="status-of-the-project">Status of the Project</h2>
+<p>This project is still under active development, so you might run into <a href="https://github.com/helm/charts/issues" target="_blank">issues</a>. If you do, please don&apos;t be shy about letting us know, or better yet, contribute a fix or feature.</p>
 
                     
                     </section>
@@ -510,10 +547,10 @@ docker run -p 4567:4567 -v $(pwd)/slate/source:/app/slate/source -d pedrocesarti
         </div>
 
         
-        <a href="../docs/janky-docker.html" class="navigation navigation-prev " aria-label="Previous page: janky-docker"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/node-teamcity-api.html" class="navigation navigation-prev " aria-label="Previous page: node-teamcity-api"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../docs/puppet-br-certification.html" class="navigation navigation-next " aria-label="Next page: puppet-br-certification"><i class="fa fa-angle-right"></i></a>
+        <a href="../docs/distributed-jmeter-docker.html" class="navigation navigation-next " aria-label="Next page: distributed-jmeter-docker"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
