@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>node-teamcity-api | Pedro César de Azevedo!</title>
+        <title>charts | Pedro César de Azevedo!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../docs/charts.html" />
+    <link rel="next" href="../docs/distributed-jmeter-docker.html" />
     
     
-    <link rel="prev" href="../docs/puppet-br.org-octopress.html" />
+    <link rel="prev" href="../docs/node-teamcity-api.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="18" data-basepath=".." data-revision="Wed Jun 12 2019 10:41:54 GMT+0000 (UTC)">
+    <div class="book" data-level="19" data-basepath=".." data-revision="Wed Jun 12 2019 10:41:54 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -324,7 +324,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="18" data-path="docs/node-teamcity-api.html">
+        <li class="chapter " data-level="18" data-path="docs/node-teamcity-api.html">
             
                 
                     <a href="../docs/node-teamcity-api.html">
@@ -339,7 +339,7 @@
             
         </li>
     
-        <li class="chapter " data-level="19" data-path="docs/charts.html">
+        <li class="chapter active" data-level="19" data-path="docs/charts.html">
             
                 
                     <a href="../docs/charts.html">
@@ -475,156 +475,68 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="node-js-teamcity-rest-api-library">Node.js TeamCity REST API Library</h1>
-<p>A Node.js API wrapper around the TeamCity RESTful API to make it easy to use.</p>
-<h2 id="installation">Installation</h2>
-<p>To use the library in Node.js, install it using npm:</p>
-<p><code>npm install teamcity-rest-api</code></p>
-<h2 id="api-style">API Style</h2>
-<p>This library has been writtne to support Node.js 4.x and native promises, 
-there are no callbacks from any of the functions.</p>
-<h1 id="examples">Examples</h1>
-<h2 id="creating-the-client">Creating the Client</h2>
-<p>You can instantiate the API client using the <code>create()</code> function with a
-<code>URL</code> or <code>configuration</code> object.</p>
-<p>If you use the <code>URL</code>, you will be connected to the <code>guest</code> RESTful API endpoints.
-This will require that you have guest access turned on in the TeamCity Server
-that you are connecting to. Note that not all endpoints are accessible
-via the <code>guest</code> API.</p>
-<h3 id="connecting-using-a-url">Connecting Using a URL</h3>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;);
-
-var client = teamcity.create(&apos;http://localhost:8111&apos;)
-</code></pre>
-<h3 id="connecting-using-a-configuration-object">Connecting Using a Configuration Object</h3>
-<p>You must use the <code>configuration</code> object if you need to connect to the authenticated
-RESTful API endpoints. The <code>configuration</code> object allows you to pass in the
-username and password values.</p>
-<p>The <code>configuration</code> object can have a number of properties which consist of:</p>
+                        <h1 id="helm-charts">Helm Charts</h1>
+<p>Use this repository to submit official Charts for Helm. Charts are curated application definitions for Helm. For more information about installing and using Helm, see its
+<a href="https://github.com/helm/helm/tree/master/README.md" target="_blank">README.md</a>. To get a quick introduction to Charts see this <a href="https://github.com/helm/helm/blob/master/docs/charts.md" target="_blank">chart document</a>.</p>
+<h2 id="where-to-find-us">Where to find us</h2>
+<p>For general Helm Chart discussions join the Helm Charts (#charts) room in the <a href="http://slack.kubernetes.io/" target="_blank">Kubernetes</a>.</p>
+<p>For issues and support for Helm and Charts see <a href="CONTRIBUTING.md#support-channels">Support Channels</a>.</p>
+<h2 id="how-do-i-install-these-charts">How do I install these charts?</h2>
+<p>Just <code>helm install stable/<chart></chart></code>. This is the default repository for Helm which is located at <a href="https://kubernetes-charts.storage.googleapis.com/" target="_blank">https://kubernetes-charts.storage.googleapis.com/</a> and is installed by default.</p>
+<p>For more information on using Helm, refer to the <a href="https://github.com/kubernetes/helm#docs" target="_blank">Helm&apos;s documentation</a>.</p>
+<h2 id="how-do-i-enable-the-incubator-repository">How do I enable the Incubator repository?</h2>
+<p>To add the Incubator charts for your local client, run <code>helm repo add</code>:</p>
+<pre><code>$ helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
+&quot;incubator&quot; has been added to your repositories
+</code></pre><p>You can then run <code>helm search incubator</code> to see the charts.</p>
+<h2 id="chart-format">Chart Format</h2>
+<p>Take a look at the <a href="https://github.com/helm/helm/tree/master/docs/examples/alpine" target="_blank">alpine example chart</a> and the <a href="https://github.com/helm/helm/tree/master/docs/examples/nginx" target="_blank">nginx example chart</a> for reference when you&apos;re writing your first few charts.</p>
+<p>Before contributing a Chart, become familiar with the format. Note that the project is still under active development and the format may still evolve a bit.</p>
+<h2 id="repository-structure">Repository Structure</h2>
+<p>This GitHub repository contains the source for the packaged and versioned charts released in the <a href="https://console.cloud.google.com/storage/browser/kubernetes-charts/" target="_blank"><code>gs://kubernetes-charts</code> Google Storage bucket</a> (the Chart Repository).</p>
+<p>The Charts in the <code>stable/</code> directory in the master branch of this repository match the latest packaged Chart in the Chart Repository, though there may be previous versions of a Chart available in that Chart Repository.</p>
+<p>The purpose of this repository is to provide a place for maintaining and contributing official Charts, with CI processes in place for managing the releasing of Charts into the Chart Repository.</p>
+<p>The Charts in this repository are organized into two folders:</p>
 <ul>
-<li><code>url</code> The full URL for the TeamCity server, e.g. <a href="http://teamcity.domain.com:8111" target="_blank">http://teamcity.domain.com:8111</a></li>
-<li><code>protocol</code> The protocol for the connection, e.g. http</li>
-<li><code>hostname</code> The hostname of the server, e.g. teamcity.domain.com</li>
-<li><code>port</code> The port for the TeamCity server, e.g. 8111</li>
-<li><code>username</code> The username if using authenticated endpoints</li>
-<li><code>password</code> The password for the user you are authenticating as</li>
+<li>stable</li>
+<li>incubator</li>
 </ul>
-<p>You can specify a full <code>url</code> or the combination of <code>protocol</code>, <code>hostname</code> 
-and an optional <code>port</code> depending upon your needs. If you choose to provide a
-<code>url</code> along with any other parameters, the <code>url</code> will be used and the others
-ignored.</p>
-<p>If no authentication details are provided (<code>username</code> and <code>password</code>) the 
-connection to TeamCity will be performed as a guest. This will require
-guest access to be turned on in the TeamCity Server. If using guest access, 
-some API endpoints may be unavailable, based on the access settings of the TeamCity Server.</p>
-<p>User authentication details can be provided using <code>user</code> or <code>username</code> for the 
-username to connect as and <code>password</code> or <code>pass</code> for the password for the user. Both a 
-username and password must be provided for the API to attempt to connect with the 
-TeamCity server, otherwise it will fall back to using a guest connection.</p>
-<p>Connecting to the TeamCity server with a <code>url</code> parameter:</p>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;);
-
-var client = teamcity.create({
-    url: &quot;http://localhost:8111&quot;,
-    username: &quot;user&quot;,
-    password: &quot;pass&quot;
-});
-</code></pre>
-<p>Connecting to the TeamCity server with a <code>protocol</code>, <code>hostname</code> and <code>port</code>:</p>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;);
-
-var client = teamcity.create({
-    url: &quot;http://localhost:8111&quot;,
-    username: &quot;user&quot;,
-    password: &quot;pass&quot;
-});
-</code></pre>
-<h2 id="teamcity-version-numbers">TeamCity Version Numbers</h2>
-<p>The TeamCity Server has two version numbers that it can report once connected. These are available as a guest or an
-authenticated user.</p>
-<p>The two version numbers are that of the TeamCity Server software and the other being that of the RESTful API version.</p>
-<h3 id="getting-the-teamcity-version">Getting the TeamCity Version</h3>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;)
-  , client = teamcity.create(&quot;http://localhost:8111&quot;)
-  ;
-
-client.getVersion()
-  .then(function(version) {
-    console.log(&quot;TeamCity Server version: &quot; + version);
-  })
-  .catch(function(err) {
-    console.error(err.message);
-  });
-</code></pre>
-<h3 id="teamcity-api-version">TeamCity API Version</h3>
-<p>The API version is a major.minor version number as a string that matches
-the version of TeamCity, e.g. for 9.1.4 it is &quot;9.1&quot;.</p>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;)
-  , client = teamcity.create(&quot;http://localhost:8111&quot;)
-  ;
-
-client.getApiVersion()
-  .then(function(version) {
-    console.log(&quot;TeamCity Server version: &quot; + version);
-  })
-  .catch(function(err) {
-    console.error(err.message);
-  });
-</code></pre>
-<h2 id="projects">Projects</h2>
-<p>The API provides a <code>project</code> object for interacting with various Project
-related activities.</p>
-<h3 id="teamcity-projects-create-create-a-project">teamcity.projects.create - Create a Project</h3>
-<p>To create a project use the <code>client.projects.create()</code> function:</p>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;)
-  , client = teamcity.create({
-    url: &quot;http://localhost:8111&quot;,
-    username: &quot;user&quot;,
-    password: &quot;pass&quot;
-  })
-  ;
-
-client.projects.create()
-  .then(function(project) {
-    console.log(JSON.stringify(project, null, 2));
-  })
-  .catch(function(err) {
-    console.error(err.message);
-  });
-</code></pre>
-<h2 id="builds">Builds</h2>
-<p>The API provides a <code>builds</code> object to interact with Build Configurations.</p>
-<h3 id="teamcity-builds-get-get-a-specific-build">teamcity.builds.get - Get a specific build</h3>
-<pre><code class="lang-js">client.builds.get({id: 100})
-  .then(function(build) {
-    console.log(build.state)
-  });
-</code></pre>
-<h3 id="teamcity-builds-getbybuildtypewithcount-and-getbyprojectwithcount-get-a-list-of-builds-for-a-configuration">teamcity.builds.getByBuildTypeWithCount and getByProjectWithCount - Get a list of builds for a configuration</h3>
-<p>These methods provide different ways to get a list of builds of a specific build configuration.
-To list builds by the name or ID of a build config, use <code>getByBuildTypeWithCount</code>.
-To list builds for a particular project, use <code>getByProjectWithCount</code>.
-Both of these methods do not apply default filtering from TeamCity, so you will get in-progress builds as well.</p>
-<pre><code class="lang-js">client.builds.getByBuildTypeWithCount({id: &quot;BuildConfigId&quot;}, {dimensions: {count:10}})
-  .then(function(buildList){
-    console.log(buildList.build[0]) //buildList.build is an array of builds, from most recent to the count parameter
-  });
-
-client.builds.getByProjectWithCount({name: &quot;TestBuildProject&quot;}, {dimensions: {count:10}})
-  .then(function(buildList){
-    console.log(buildList.build[0].id) //build id can be passed to builds.get for more detailed info
-  });
-</code></pre>
-<p>The TeamCity API documentation has more examples of dimensions that can be passed into these lookups.</p>
-<h3 id="teamcity-builds-startbuild-run-a-build-configuration">teamcity.builds.startBuild - Run a build configuration.</h3>
-<p>This method allows you to start a build configuration; It&apos;ll return the build number of the running build.</p>
-<pre><code class="lang-js">var buildNodeObject = &quot;<build> <buildType id="\&quot;TestConfigId\&quot;"> </buildType></build>&quot;
-client.builds.startBuild(buildNodeObject)
-  .then(function(buildStatus) {
-    console.log(buildStatus.id)
-  });
-</code></pre>
-<p>Refer to the TeamCity REST API documentation for more info on what can be passed as a buildNode.</p>
+<p>Stable Charts meet the criteria in the <a href="CONTRIBUTING.md#technical-requirements">technical requirements</a>.</p>
+<p>Incubator Charts are those that do not meet these criteria. Having the incubator folder allows charts to be shared and improved on until they are ready to be moved into the stable folder. The charts in the <code>incubator/</code> directory can be found in the <a href="https://console.cloud.google.com/storage/browser/kubernetes-charts-incubator" target="_blank"><code>gs://kubernetes-charts-incubator</code> Google Storage Bucket</a>.</p>
+<p>In order to get a Chart from incubator to stable, Chart maintainers should open a pull request that moves the chart folder.</p>
+<h2 id="contributing-a-chart">Contributing a Chart</h2>
+<p>We&apos;d love for you to contribute a Chart that provides a useful application or service for Kubernetes. Please read our <a href="CONTRIBUTING.md">Contribution Guide</a> for more information on how you can contribute Charts.</p>
+<p>Note: We use the same <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/development.md#workflow" target="_blank">workflow</a>,
+<a href="LICENSE">License</a> and <a href="CONTRIBUTING.md">Contributor License Agreement</a> as the main Kubernetes repository.</p>
+<h2 id="owning-and-maintaining-a-chart">Owning and Maintaining A Chart</h2>
+<p>Individual charts can be maintained by one or more members of the Kubernetes community. When someone maintains a chart they have the access to merge changes to that chart. To have merge access to a chart someone needs to:</p>
+<ol>
+<li>Be listed on the chart, in the <code>Chart.yaml</code> file, as a maintainer. If you need sponsors and have contributed to the chart, please reach out to the existing maintainers, or if you are having trouble connecting with them, please reach out to one of the <a href="OWNERS">OWNERS</a> of the charts repository.</li>
+<li>Be invited (and accept your invite) as a read-only collaborator on <a href="https://github.com/helm/charts" target="_blank">this repo</a>. This is required for @k8s-ci-robot <a href="https://github.com/kubernetes/community/blob/master/contributors/guide/pull-requests.md" target="_blank">PR comment interaction</a>.</li>
+<li>An OWNERS file needs to be added to a chart. That OWNERS file should list the maintainers&apos; GitHub login names for both the reviewers and approvers sections. For an example see the <a href="stable/drupal/OWNERS">Drupal chart</a>. The <code>OWNERS</code> file should also be appended to the <code>.helmignore</code> file.</li>
+</ol>
+<p>Once these two steps are done a chart approver can merge pull requests following the directions in the <a href="REVIEW_GUIDELINES.md">REVIEW_GUIDELINES.md</a> file.</p>
+<h2 id="trusted-collaborator">Trusted Collaborator</h2>
+<p>The <code>pull-charts-e2e</code> test run, that installs a chart to test it, is required before a pull request can be merged. These tests run automatically for members of the Helm Org and for chart OWNERS, listed in OWNERS files. For regular contributors who are trusted, in a manner similar to Kubernetes community members, we have trusted collaborators. These individuals can have their tests run automatically as well as mark other pull requests as ok to test by adding a comment of <code>/ok-to-test</code> on pull requests.</p>
+<p>There are two paths to becoming a trusted collaborator. One only needs follow one of them.</p>
+<ol>
+<li>If you are a Kubernetes GitHub org member and have your Kubernetes org membership public you can become a trusted collaborator for Helm Charts</li>
+<li>Get sponsorship from one of the Charts Maintainers listed in the OWNERS file at the root of this repository</li>
+</ol>
+<p>The process to get added is:</p>
+<ul>
+<li>File an issue asking to be a trusted collaborator</li>
+<li>A Helm Chart Maintainer can then add the user as a read only collaborator to the repository</li>
+</ul>
+<h2 id="review-process">Review Process</h2>
+<p>For information related to the review procedure used by the Chart repository maintainers, see <a href="CONTRIBUTING.md#merge-approval-and-release-process">Merge approval and release process</a>.</p>
+<h3 id="stale-pull-requests-and-issues">Stale Pull Requests and Issues</h3>
+<p>Pull Requests and Issues that have no activity for 30 days automatically become stale. After 30 days of being stale, without activity, they become rotten. Pull Requests and Issues can rot for 30 days and then they are automatically closed. This is the standard stale process handling for all repositories on the Kubernetes GitHub organization.</p>
+<h2 id="supported-kubernetes-versions">Supported Kubernetes Versions</h2>
+<p>This chart repository supports the latest and previous minor versions of Kubernetes. For example, if the latest minor release of Kubernetes is 1.8 then 1.7 and 1.8 are supported. Charts may still work on previous versions of Kubernertes even though they are outside the target supported window.</p>
+<p>To provide that support the API versions of objects should be those that work for both the latest minor release and the previous one.</p>
+<h2 id="status-of-the-project">Status of the Project</h2>
+<p>This project is still under active development, so you might run into <a href="https://github.com/helm/charts/issues" target="_blank">issues</a>. If you do, please don&apos;t be shy about letting us know, or better yet, contribute a fix or feature.</p>
 
                     
                     </section>
@@ -635,10 +547,10 @@ client.builds.startBuild(buildNodeObject)
         </div>
 
         
-        <a href="../docs/puppet-br.org-octopress.html" class="navigation navigation-prev " aria-label="Previous page: puppet-br"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/node-teamcity-api.html" class="navigation navigation-prev " aria-label="Previous page: node-teamcity-api"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../docs/charts.html" class="navigation navigation-next " aria-label="Next page: charts"><i class="fa fa-angle-right"></i></a>
+        <a href="../docs/distributed-jmeter-docker.html" class="navigation navigation-next " aria-label="Next page: distributed-jmeter-docker"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
