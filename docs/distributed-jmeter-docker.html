@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>jenkins-docker-slave | Pedro César de Azevedo!</title>
+        <title>distributed-jmeter-docker | Pedro César de Azevedo!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,8 @@
         
     
     
-    <link rel="next" href="../docs/snm-cm-docker.html" />
     
-    
-    <link rel="prev" href="../docs/javascript-mean-docker.html" />
+    <link rel="prev" href="../docs/charts.html" />
     
 
         
@@ -38,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="12" data-basepath=".." data-revision="Wed Jul 03 2019 11:04:15 GMT+0000 (UTC)">
+    <div class="book" data-level="20" data-basepath=".." data-revision="Wed Jul 03 2019 11:04:15 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -234,7 +232,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="12" data-path="docs/jenkins-docker-slave.html">
+        <li class="chapter " data-level="12" data-path="docs/jenkins-docker-slave.html">
             
                 
                     <a href="../docs/jenkins-docker-slave.html">
@@ -354,7 +352,7 @@
             
         </li>
     
-        <li class="chapter " data-level="20" data-path="docs/distributed-jmeter-docker.html">
+        <li class="chapter active" data-level="20" data-path="docs/distributed-jmeter-docker.html">
             
                 
                     <a href="../docs/distributed-jmeter-docker.html">
@@ -475,7 +473,47 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="jenkins-docker-worker">jenkins-docker-worker</h1>
+                        <h1 id="distributed-jmeter-docker">Distributed JMeter - Docker</h1>
+<p>Apache Jmeter&#x2122; is an open source tool that helps creating and running load test plans. And this Docker image was created to help you running different versions of JMeter in a Docker container, also helping you running in a distributed fashion (master -&gt; server approach). </p>
+<h2 id="supported-tags">Supported tags</h2>
+<p>The <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/Dockerfile" target="_blank">Dockerfile</a> here is managed and built with arguments what helps building  and pushing our JMeter images for all versions of JMeter available. If you want more information, have a look on the <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/Makefile" target="_blank">Makefile</a>.</p>
+<ul>
+<li>3.3, latest</li>
+<li>2.6</li>
+<li>2.7</li>
+<li>2.8</li>
+<li>2.9</li>
+<li>2.10</li>
+<li>2.11</li>
+<li>2.12</li>
+<li>2.13</li>
+<li>3.0</li>
+<li>3.1</li>
+<li>3.2</li>
+<li>4.0</li>
+<li>5.0 </li>
+</ul>
+<h2 id="running-master-or-server">Running Master or Server</h2>
+<h3 id="master">Master</h3>
+<pre><code class="lang-sh">docker run -p 60000:60000 -v <TEST_PLAN_LOCAL>:<TEST_PLAN_CONTAINER> -d pedrocesarti/jmeter-docker:latest master
+</TEST_PLAN_CONTAINER></TEST_PLAN_LOCAL></code></pre>
+<h3 id="server">Server</h3>
+<pre><code class="lang-sh">docker run -p 1099:1099 -p 50000:50000 -d pedrocesarti/jmeter-docker:latest server
+</code></pre>
+<h2 id="running-master-and-server-docker-compose">Running Master and Server (Docker Compose)</h2>
+<p>You can also create a whole stack with master and servers to run a distributed JMeter tests locally or in a Docker Swarm Cluster. Check out this <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/local/docker-compose.yml" target="_blank">docker-compose.yml</a> to see one example of this infra running locally.
+This example is going to create a master and a server container running locally, and you can also scale up and down the number servers instancesrunning.</p>
+<pre><code class="lang-sh">docker-compose up -d
+docker-compose scale server=5
+</code></pre>
+<h2 id="volumes">Volumes</h2>
+<p>Another good point to mention here is that we suggest that you use volumes to share your test plans with the master container and once you have your test plans on your master container, you only going to need exec:</p>
+<pre><code class="lang-sh">jmeter -n -t script.jmx -R server1,server2,&#x2026;
+</code></pre>
+<p>You can also use this <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/local/docker-compose.yml" target="_blank">docker-compose</a> to deploy in a Docker Swarm cluster defining better techniques to scale the number of replicas you want for each service and add all power of the internal discovery service.</p>
+<h2 id="k8s">K8s</h2>
+<p>For the Kubernetes support, also have a look at the official helm/<a href="https://github.com/helm/charts/tree/master/stable/distributed-jmeter" target="_blank">chart</a> repository.</p>
+<p>Enjoy! :)</p>
 
                     
                     </section>
@@ -486,10 +524,8 @@
         </div>
 
         
-        <a href="../docs/javascript-mean-docker.html" class="navigation navigation-prev " aria-label="Previous page: javascript-mean-docker"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/charts.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: charts"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../docs/snm-cm-docker.html" class="navigation navigation-next " aria-label="Next page: monitor-stack-docker"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
