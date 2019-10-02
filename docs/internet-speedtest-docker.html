@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1" data-basepath=".." data-revision="Wed Sep 25 2019 10:50:21 GMT+0000 (UTC)">
+    <div class="book" data-level="1" data-basepath=".." data-revision="Wed Oct 02 2019 10:50:49 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -586,7 +586,7 @@ $ docker-compose up -d
 </tbody>
 </table>
 <h3 id="speedtest-testing">SpeedTest (Testing)</h3>
-<p>This image was created to run a script that calls speedtest-cli to test the internet connect and save data on InfluxDB. <a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a> is a tool written in Python and is used to test your Internet connection based on donwload and upload some content from servers configured previously (in average this test takes around 30 sec, at least in my case).</p>
+<p>This image was created to run a script that calls speedtest-cli to test the internet connect and save data on InfluxDB. <a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a> is a tool written in Python and is used to test your Internet connection based on download and upload some content from servers configured previously (in average this test takes around 30 sec, at least in my case).</p>
 <p>The only variable to customize on this image is a variable to set the frequency that this script will run in seconds. So if you need your test to run every minute, change the variable to 60 seconds. Just bear in mind that the speed test execution time will be added on top of the test interval so you might end up with data points every 1 minute and something. </p>
 <p>If you are using docker-compose to standup you stack you can easily change the variable value on the <a href="env/testing.env">env/testing.env</a> file.</p>
 <table>
