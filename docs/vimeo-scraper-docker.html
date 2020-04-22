@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Xenv-jenkins-lib | Pedro César de Azevedo!</title>
+        <title>vimeo-scraper-docker | Pedro César de Azevedo!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,8 @@
         
     
     
-    <link rel="next" href="../docs/hubot-slack-docker.html" />
     
-    
-    <link rel="prev" href="../docs/internet-speedtest-docker.html" />
+    <link rel="prev" href="../docs/distributed-jmeter-docker.html" />
     
 
         
@@ -38,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="2" data-basepath=".." data-revision="Wed Apr 22 2020 11:02:23 GMT+0000 (UTC)">
+    <div class="book" data-level="21" data-basepath=".." data-revision="Wed Apr 22 2020 11:02:23 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -84,7 +82,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2" data-path="docs/Xenv-jenkins-lib.html">
+        <li class="chapter " data-level="2" data-path="docs/Xenv-jenkins-lib.html">
             
                 
                     <a href="../docs/Xenv-jenkins-lib.html">
@@ -369,7 +367,7 @@
             
         </li>
     
-        <li class="chapter " data-level="21" data-path="docs/vimeo-scraper-docker.html">
+        <li class="chapter active" data-level="21" data-path="docs/vimeo-scraper-docker.html">
             
                 
                     <a href="../docs/vimeo-scraper-docker.html">
@@ -490,91 +488,7 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="xenv-jenkins-lib">Xenv-jenkins-lib</h1>
-<p>For those who are:</p>
-<ol>
-<li>Sick managing different versions of NodeJS, Python or Ruby in your Jenkins Pipelines</li>
-<li>Struggling getting NVM, RVM and virtualenv working in your pipeline</li>
-<li>Or just having a bad time setting up a bunch of plugins</li>
-</ol>
-<p>I HAVE EXCITING NEWS FOR YOU!!! </p>
-<p>Using the power of:</p>
-<ul>
-<li><a href="https://jenkins.io/doc/book/pipeline/shared-libraries/" target="_blank">Jenkins Shared Libraries</a></li>
-<li><a href="https://github.com/nodenv/nodenv" target="_blank">nodenv</a></li>
-<li><a href="https://github.com/pyenv/pyenv" target="_blank">pyenv</a></li>
-<li><a href="https://github.com/rbenv/rbenv" target="_blank">rbenv</a></li>
-</ul>
-<p>I created this small library that allow you to import to your pipeline  methods that do all the heavy lifting on installing the tools and different versions of NodeJS, Ruby and Python (like meta-runners).</p>
-<p>The main goal is something simple like this:</p>
-<pre><code class="lang-groovy">script {
-    withNodenv(&apos;0.12.14&apos;) {
-      sh &quot;node --version&quot;     \\ Output:  v0.12.14
-    }
-}
-</code></pre>
-<p>Have a look on some <a href="examples">Examples</a>.</p>
-<h3 id="-installing">&quot;Installing&quot;</h3>
-<p>You have couple options to import the module and start using you can import dinamically on each of your pipelines or you can import globally in your Jenkins server and all pipelines can import just as a single <code>Library</code>.</p>
-<h4 id="importing-dynamically">Importing dynamically</h4>
-<p>You can dynamically import the library adding this snippet at the beginning of your Jenkins file:</p>
-<pre><code class="lang-groovy">library identifier: &apos;xenv-jenkins-lib@master&apos;, 
-        retriever: modernSCM([$class: &apos;GitSCMSource&apos;, 
-        remote: &apos;https://github.com/pedrocesar-ti/Xenv-jenkins-lib.git&apos;])
-</code></pre>
-<h4 id="importing-via-global-configuration">Importing via Global Configuration</h4>
-<p>With the <a href="https://jenkins.io/doc/book/pipeline/shared-libraries/#global-shared-libraries" target="_blank">Global Shared Libraries</a>, we can basically import this lib globaly to be used in any pipeline. </p>
-<p align="center"><img src="https://dl.dropboxusercontent.com/s/c74sr7mqgyqoo9x/Screen%20Shot%202018-09-23%20at%207.04.52%20AM.png" Jenkins="" Global"=""></p>
-
-<p>On your <em>Jenkinsfile</em> you only need:</p>
-<pre><code class="lang-groovy">@Library(&apos;xenv-jenkins-lib&apos;) _
-</code></pre>
-<h3 id="using">Using</h3>
-<p>Please have a look in the <a href="examples">examples</a> folder to see how to use the methods exported by this lib.</p>
-<h4 id="withnodenv-version-method">withNodenv(version, method)</h4>
-<ul>
-<li><em>version</em> is going to specify what version of NodeJS you want to run your code, default version is <em>6.14.4</em>.</li>
-<li><em>method</em> is going to define if the version should be deleted (clean) after used, the default method is to keep the installed versions, so you don&apos;t need to re-install every time.</li>
-</ul>
-<pre><code class="lang-groovy">  script {
-    withNodenv.purgeAll(&apos;nodenv&apos;)
-    withNodenv(&apos;6.14.4&apos;, &apos;clean&apos;) {
-      sh &quot;node --version&quot;    // v6.14.4
-    }
-  }
-</code></pre>
-<blockquote>
-<p>withNodenv.purgeAll(&apos;nodenv&apos;) - this method helps deleting all versions of NodeJS.</p>
-</blockquote>
-<h4 id="withpyenv-version-method">withPyenv(version, method)</h4>
-<ul>
-<li><em>version</em> is going to specify what version of Python you want to run your code, default Python version is <em>3.7.0</em>.</li>
-<li><em>method</em> is going to define if the version should be deleted (clean) after used, the default method is to keep the installed versions, so you don&apos;t need to re-install every time.</li>
-</ul>
-<pre><code class="lang-groovy">  script {
-    withPyenv() {
-      sh &quot;python --version&quot;    // Python 3.7.0
-    }
-  }
-</code></pre>
-<blockquote>
-<p>withPyenv.purgeAll(&apos;pyenv&apos;) - this method helps deleting all versions of Python.</p>
-</blockquote>
-<h4 id="withrbenv-version-method">withRbenv(version, method)</h4>
-<ul>
-<li><em>version</em> is going to specify what version of Ruby you want to run your code, default Ruby version is <em>2.5.1</em>.</li>
-<li><em>method</em> is going to define if the version should be deleted (clean) after used, the default method is to keep the installed versions, so you don&apos;t need to re-install every time.</li>
-</ul>
-<pre><code class="lang-groovy">  script {
-    withRbenv(&apos;2.3.0&apos;) {
-      sh &quot;ruby --version&quot;    // ruby 2.3.0p0
-    }
-  }
-</code></pre>
-<blockquote>
-<p>withRbenv.purgeAll(&apos;rbenv&apos;) - this method helps deleting all versions of Ruby.</p>
-</blockquote>
-<p>Enjoy! :)</p>
+                        <h1 id="vimeo-scraper-docker">vimeo-scraper-docker</h1>
 
                     
                     </section>
@@ -585,10 +499,8 @@
         </div>
 
         
-        <a href="../docs/internet-speedtest-docker.html" class="navigation navigation-prev " aria-label="Previous page: internet-speedtest-docker"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/distributed-jmeter-docker.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: distributed-jmeter-docker"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../docs/hubot-slack-docker.html" class="navigation navigation-next " aria-label="Next page: hubot-slack-docker"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
