@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>node-teamcity-api | Pedro César de Azevedo!</title>
+        <title>distributed-jmeter-docker | Pedro César de Azevedo!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../docs/charts.html" />
+    <link rel="next" href="../docs/vimeo-scraper-docker.html" />
     
     
-    <link rel="prev" href="../docs/puppet-br.org-octopress.html" />
+    <link rel="prev" href="../docs/charts.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="18" data-basepath=".." data-revision="Wed Dec 02 2020 13:09:34 GMT+0000 (UTC)">
+    <div class="book" data-level="20" data-basepath=".." data-revision="Wed Dec 02 2020 13:09:34 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -324,7 +324,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="18" data-path="docs/node-teamcity-api.html">
+        <li class="chapter " data-level="18" data-path="docs/node-teamcity-api.html">
             
                 
                     <a href="../docs/node-teamcity-api.html">
@@ -354,7 +354,7 @@
             
         </li>
     
-        <li class="chapter " data-level="20" data-path="docs/distributed-jmeter-docker.html">
+        <li class="chapter active" data-level="20" data-path="docs/distributed-jmeter-docker.html">
             
                 
                     <a href="../docs/distributed-jmeter-docker.html">
@@ -490,156 +490,47 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="node-js-teamcity-rest-api-library">Node.js TeamCity REST API Library</h1>
-<p>A Node.js API wrapper around the TeamCity RESTful API to make it easy to use.</p>
-<h2 id="installation">Installation</h2>
-<p>To use the library in Node.js, install it using npm:</p>
-<p><code>npm install teamcity-rest-api</code></p>
-<h2 id="api-style">API Style</h2>
-<p>This library has been writtne to support Node.js 4.x and native promises, 
-there are no callbacks from any of the functions.</p>
-<h1 id="examples">Examples</h1>
-<h2 id="creating-the-client">Creating the Client</h2>
-<p>You can instantiate the API client using the <code>create()</code> function with a
-<code>URL</code> or <code>configuration</code> object.</p>
-<p>If you use the <code>URL</code>, you will be connected to the <code>guest</code> RESTful API endpoints.
-This will require that you have guest access turned on in the TeamCity Server
-that you are connecting to. Note that not all endpoints are accessible
-via the <code>guest</code> API.</p>
-<h3 id="connecting-using-a-url">Connecting Using a URL</h3>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;);
-
-var client = teamcity.create(&apos;http://localhost:8111&apos;)
-</code></pre>
-<h3 id="connecting-using-a-configuration-object">Connecting Using a Configuration Object</h3>
-<p>You must use the <code>configuration</code> object if you need to connect to the authenticated
-RESTful API endpoints. The <code>configuration</code> object allows you to pass in the
-username and password values.</p>
-<p>The <code>configuration</code> object can have a number of properties which consist of:</p>
+                        <h1 id="distributed-jmeter-docker">Distributed JMeter - Docker</h1>
+<p>Apache Jmeter&#x2122; is an open source tool that helps creating and running load test plans. And this Docker image was created to help you running different versions of JMeter in a Docker container, also helping you running in a distributed fashion (master -&gt; server approach). </p>
+<h2 id="supported-tags">Supported tags</h2>
+<p>The <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/Dockerfile" target="_blank">Dockerfile</a> here is managed and built with arguments what helps building  and pushing our JMeter images for all versions of JMeter available. If you want more information, have a look on the <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/Makefile" target="_blank">Makefile</a>.</p>
 <ul>
-<li><code>url</code> The full URL for the TeamCity server, e.g. <a href="http://teamcity.domain.com:8111" target="_blank">http://teamcity.domain.com:8111</a></li>
-<li><code>protocol</code> The protocol for the connection, e.g. http</li>
-<li><code>hostname</code> The hostname of the server, e.g. teamcity.domain.com</li>
-<li><code>port</code> The port for the TeamCity server, e.g. 8111</li>
-<li><code>username</code> The username if using authenticated endpoints</li>
-<li><code>password</code> The password for the user you are authenticating as</li>
+<li>3.3, latest</li>
+<li>2.6</li>
+<li>2.7</li>
+<li>2.8</li>
+<li>2.9</li>
+<li>2.10</li>
+<li>2.11</li>
+<li>2.12</li>
+<li>2.13</li>
+<li>3.0</li>
+<li>3.1</li>
+<li>3.2</li>
+<li>4.0</li>
+<li>5.0 </li>
 </ul>
-<p>You can specify a full <code>url</code> or the combination of <code>protocol</code>, <code>hostname</code> 
-and an optional <code>port</code> depending upon your needs. If you choose to provide a
-<code>url</code> along with any other parameters, the <code>url</code> will be used and the others
-ignored.</p>
-<p>If no authentication details are provided (<code>username</code> and <code>password</code>) the 
-connection to TeamCity will be performed as a guest. This will require
-guest access to be turned on in the TeamCity Server. If using guest access, 
-some API endpoints may be unavailable, based on the access settings of the TeamCity Server.</p>
-<p>User authentication details can be provided using <code>user</code> or <code>username</code> for the 
-username to connect as and <code>password</code> or <code>pass</code> for the password for the user. Both a 
-username and password must be provided for the API to attempt to connect with the 
-TeamCity server, otherwise it will fall back to using a guest connection.</p>
-<p>Connecting to the TeamCity server with a <code>url</code> parameter:</p>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;);
-
-var client = teamcity.create({
-    url: &quot;http://localhost:8111&quot;,
-    username: &quot;user&quot;,
-    password: &quot;pass&quot;
-});
+<h2 id="running-master-or-server">Running Master or Server</h2>
+<h3 id="master">Master</h3>
+<pre><code class="lang-sh">docker run -p 60000:60000 -v <TEST_PLAN_LOCAL>:<TEST_PLAN_CONTAINER> -d pedrocesarti/jmeter-docker:latest master
+</TEST_PLAN_CONTAINER></TEST_PLAN_LOCAL></code></pre>
+<h3 id="server">Server</h3>
+<pre><code class="lang-sh">docker run -p 1099:1099 -p 50000:50000 -d pedrocesarti/jmeter-docker:latest server
 </code></pre>
-<p>Connecting to the TeamCity server with a <code>protocol</code>, <code>hostname</code> and <code>port</code>:</p>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;);
-
-var client = teamcity.create({
-    url: &quot;http://localhost:8111&quot;,
-    username: &quot;user&quot;,
-    password: &quot;pass&quot;
-});
+<h2 id="running-master-and-server-docker-compose">Running Master and Server (Docker Compose)</h2>
+<p>You can also create a whole stack with master and servers to run a distributed JMeter tests locally or in a Docker Swarm Cluster. Check out this <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/local/docker-compose.yml" target="_blank">docker-compose.yml</a> to see one example of this infra running locally.
+This example is going to create a master and a server container running locally, and you can also scale up and down the number servers instancesrunning.</p>
+<pre><code class="lang-sh">docker-compose up -d
+docker-compose scale server=5
 </code></pre>
-<h2 id="teamcity-version-numbers">TeamCity Version Numbers</h2>
-<p>The TeamCity Server has two version numbers that it can report once connected. These are available as a guest or an
-authenticated user.</p>
-<p>The two version numbers are that of the TeamCity Server software and the other being that of the RESTful API version.</p>
-<h3 id="getting-the-teamcity-version">Getting the TeamCity Version</h3>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;)
-  , client = teamcity.create(&quot;http://localhost:8111&quot;)
-  ;
-
-client.getVersion()
-  .then(function(version) {
-    console.log(&quot;TeamCity Server version: &quot; + version);
-  })
-  .catch(function(err) {
-    console.error(err.message);
-  });
+<h2 id="volumes">Volumes</h2>
+<p>Another good point to mention here is that we suggest that you use volumes to share your test plans with the master container and once you have your test plans on your master container, you only going to need exec:</p>
+<pre><code class="lang-sh">jmeter -n -t script.jmx -R server1,server2,&#x2026;
 </code></pre>
-<h3 id="teamcity-api-version">TeamCity API Version</h3>
-<p>The API version is a major.minor version number as a string that matches
-the version of TeamCity, e.g. for 9.1.4 it is &quot;9.1&quot;.</p>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;)
-  , client = teamcity.create(&quot;http://localhost:8111&quot;)
-  ;
-
-client.getApiVersion()
-  .then(function(version) {
-    console.log(&quot;TeamCity Server version: &quot; + version);
-  })
-  .catch(function(err) {
-    console.error(err.message);
-  });
-</code></pre>
-<h2 id="projects">Projects</h2>
-<p>The API provides a <code>project</code> object for interacting with various Project
-related activities.</p>
-<h3 id="teamcity-projects-create-create-a-project">teamcity.projects.create - Create a Project</h3>
-<p>To create a project use the <code>client.projects.create()</code> function:</p>
-<pre><code class="lang-js">var teamcity = require(&quot;teamcity-rest-api&quot;)
-  , client = teamcity.create({
-    url: &quot;http://localhost:8111&quot;,
-    username: &quot;user&quot;,
-    password: &quot;pass&quot;
-  })
-  ;
-
-client.projects.create()
-  .then(function(project) {
-    console.log(JSON.stringify(project, null, 2));
-  })
-  .catch(function(err) {
-    console.error(err.message);
-  });
-</code></pre>
-<h2 id="builds">Builds</h2>
-<p>The API provides a <code>builds</code> object to interact with Build Configurations.</p>
-<h3 id="teamcity-builds-get-get-a-specific-build">teamcity.builds.get - Get a specific build</h3>
-<pre><code class="lang-js">client.builds.get({id: 100})
-  .then(function(build) {
-    console.log(build.state)
-  });
-</code></pre>
-<h3 id="teamcity-builds-getbybuildtypewithcount-and-getbyprojectwithcount-get-a-list-of-builds-for-a-configuration">teamcity.builds.getByBuildTypeWithCount and getByProjectWithCount - Get a list of builds for a configuration</h3>
-<p>These methods provide different ways to get a list of builds of a specific build configuration.
-To list builds by the name or ID of a build config, use <code>getByBuildTypeWithCount</code>.
-To list builds for a particular project, use <code>getByProjectWithCount</code>.
-Both of these methods do not apply default filtering from TeamCity, so you will get in-progress builds as well.</p>
-<pre><code class="lang-js">client.builds.getByBuildTypeWithCount({id: &quot;BuildConfigId&quot;}, {dimensions: {count:10}})
-  .then(function(buildList){
-    console.log(buildList.build[0]) //buildList.build is an array of builds, from most recent to the count parameter
-  });
-
-client.builds.getByProjectWithCount({name: &quot;TestBuildProject&quot;}, {dimensions: {count:10}})
-  .then(function(buildList){
-    console.log(buildList.build[0].id) //build id can be passed to builds.get for more detailed info
-  });
-</code></pre>
-<p>The TeamCity API documentation has more examples of dimensions that can be passed into these lookups.</p>
-<h3 id="teamcity-builds-startbuild-run-a-build-configuration">teamcity.builds.startBuild - Run a build configuration.</h3>
-<p>This method allows you to start a build configuration; It&apos;ll return the build number of the running build.</p>
-<pre><code class="lang-js">var buildNodeObject = &quot;<build> <buildType id="\&quot;TestConfigId\&quot;"> </buildType></build>&quot;
-client.builds.startBuild(buildNodeObject)
-  .then(function(buildStatus) {
-    console.log(buildStatus.id)
-  });
-</code></pre>
-<p>Refer to the TeamCity REST API documentation for more info on what can be passed as a buildNode.</p>
+<p>You can also use this <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/local/docker-compose.yml" target="_blank">docker-compose</a> to deploy in a Docker Swarm cluster defining better techniques to scale the number of replicas you want for each service and add all power of the internal discovery service.</p>
+<h2 id="k8s">K8s</h2>
+<p>For the Kubernetes support, also have a look at the official helm/<a href="https://github.com/helm/charts/tree/master/stable/distributed-jmeter" target="_blank">chart</a> repository.</p>
+<p>Enjoy! :)</p>
 
                     
                     </section>
@@ -650,10 +541,10 @@ client.builds.startBuild(buildNodeObject)
         </div>
 
         
-        <a href="../docs/puppet-br.org-octopress.html" class="navigation navigation-prev " aria-label="Previous page: puppet-br"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/charts.html" class="navigation navigation-prev " aria-label="Previous page: charts"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../docs/charts.html" class="navigation navigation-next " aria-label="Next page: charts"><i class="fa fa-angle-right"></i></a>
+        <a href="../docs/vimeo-scraper-docker.html" class="navigation navigation-next " aria-label="Next page: vimeo-scraper-docker"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
