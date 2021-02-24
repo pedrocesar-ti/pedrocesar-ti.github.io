@@ -17,6 +17,3 @@
 * [puppet-br-certification](docs/puppet-br-certification.md)
 * [puppet-br](docs/puppet-br.org-octopress.md)
 * [node-teamcity-api](docs/node-teamcity-api.md)
-* [charts](docs/charts.md)
-* [distributed-jmeter-docker](docs/distributed-jmeter-docker.md)
-* [vimeo-scraper-docker](docs/vimeo-scraper-docker.md)
