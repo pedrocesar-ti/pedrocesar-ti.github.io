@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>internet-speedtest-docker | Pedro César de Azevedo!</title>
+        <title>distributed-jmeter-docker | Pedro César de Azevedo!</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../docs/Xenv-jenkins-lib.html" />
+    <link rel="next" href="../docs/vimeo-scraper-docker.html" />
     
     
-    <link rel="prev" href="../index.html" />
+    <link rel="prev" href="../docs/charts.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1" data-basepath=".." data-revision="Wed Mar 03 2021 11:26:15 GMT+0000 (UTC)">
+    <div class="book" data-level="20" data-basepath=".." data-revision="Wed Mar 03 2021 11:26:15 GMT+0000 (UTC)">
     
 
 <div class="book-summary">
@@ -69,7 +69,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1" data-path="docs/internet-speedtest-docker.html">
+        <li class="chapter " data-level="1" data-path="docs/internet-speedtest-docker.html">
             
                 
                     <a href="../docs/internet-speedtest-docker.html">
@@ -354,7 +354,7 @@
             
         </li>
     
-        <li class="chapter " data-level="20" data-path="docs/distributed-jmeter-docker.html">
+        <li class="chapter active" data-level="20" data-path="docs/distributed-jmeter-docker.html">
             
                 
                     <a href="../docs/distributed-jmeter-docker.html">
@@ -490,112 +490,46 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="internet-speedtest-docker">internet-speedtest-docker</h1>
-<p><strong><strong>Spoiler Alert</strong></strong></p>
-<p>This project won&apos;t help you with your connection, actually this project born when I need to monitoring the speed of my Internet, create a report to send to my ISP, so they can take some action. Using <strong>Docker Compose</strong> I put together three containers with the tools needed to monitoring and display the status of your Internet (and I know that tool can do more or can be better).</p>
-<p>Here in Brazil is a mess to contract a good ISP, they just don&apos;t deliver the speed they should for the users. Generally in a small business or a residence you can&apos;t pay for a very expensive plans where they certify the bandwidth delivered. So you have to call them many times complaining about the speed of your internet connection and always they will ask you to do that Internet Tests Online, such as <a href="http://www.speedtest.net" target="_blank">SpeedTest</a>, <a href="http://www.att.com/speedtest/" target="_blank">AT&amp;T SpeedTest</a>, <a href="http://testmy.net" target="_blank">TestMyNet</a>, most of these tests are based only on ICMP messages that don&apos;t reflect your real bandwidth at that time. Or even worse your ISP can allow all trafic ICMP so when you test it appears that you have a good speed but when you have to download some content you can&apos;t do it that well. There is much more to talk about it but I don&apos;t wanna spend so much time talking about the things that are wrong here.</p>
-<p align="center"><img src="https://dl.dropboxusercontent.com/s/l0py4zgi5izcbgw/Screen%20Shot%202017-02-27%20at%2023.55.16.png" Grafana"=""></p>
-
-<h2 id="running-container">Running container</h2>
-<p>The only requirement to run this compose is have Docker Compose installed, if you need to install you can <a href="https://docs.docker.com/compose/install/" target="_blank">click here</a> to check out how can you do that. After installed the only thing you need is export the variables that you like and configure the volume for persistent data, then run the compose as command available below:</p>
-<pre><code class="lang-console">$ git clone https://github.com/pedrocesar-ti/internet-speedtest-docker.git
-$ cd internet-speedtest-docker
-
-$ docker-compose up -d
-</code></pre>
-<h2 id="docker-compose">Docker Compose</h2>
-<p>As you probably know Docker Compose is a tool to let you running a multi-container application, so as I sad before I put together some contaiers to make everything work together. They are described below:</p>
-<h3 id="influxdb-db">InfluxDB (DB)</h3>
-<p>InfluxDB is a database tool based on time-series, so every event is registrate with their timestamp. I decided to use InfluxDB at first because has great integration with Grafana and second I don&apos;t take cara about timestamp and how generate the graphs based on time.</p>
-<p align="center"><img src="https://dl.dropboxusercontent.com/s/u8urqvu85ob8zdn/Screen%20Shot%202017-02-28%20at%2000.03.36.png" InfluxDB"=""></p>
-
-<p>This project uses the official InfluxDB image hosted in the Docker Hub Library.</p>
-<p>You can edit or remove the volumes section of the docker-compose.yml file to reflect where you want you persistent data to live, or you can remove it if you like.   If you remove the volume mount you will lose all of your data if the container is removed.</p>
-<pre><code class="lang-docker-compose.yml">services:
-  db:
-    image: influxdb 
-    container_name: influxdb
-    volumes:
-      - &quot;/data/influxdb/:/var/lib/influxdb&quot;
-</code></pre>
-<p>You can customize some actions with variables listed below:</p>
-<table>
-<thead>
-<tr>
-<th>Variables</th>
-<th>Default</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>INFLUXDB_ADMIN_USER</strong></td>
-<td>admin</td>
-<td>Set root user for the database.</td>
-</tr>
-<tr>
-<td><strong>INFLUXDB_ADMIN_PASSWORD</strong></td>
-<td>password</td>
-<td>Set the password for the root user.</td>
-</tr>
-<tr>
-<td><strong>INFLUXDB_DB</strong></td>
-<td>speedtest</td>
-<td>Create a database <strong>speedtest</strong> when container starts.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="grafana-web">Grafana (Web)</h3>
-<p>Grafana is a tool to create and manage dashboards and graphs. It&apos;s a really cool tool and as I said earlier has a perfect integration with InfluxDB.</p>
-<p>When I started this project I used <a href="https://github.com/tutumcloud/grafana" target="_blank">tutumcloud/grafana</a> image, however they stopped to update grafana image beacause the new version has a different way to be installed, so it&apos;s deprecated. So I used <a href="https://hub.docker.com/r/grafana/grafana/" target="_blank">grafana</a> original image as a base system to generate my own image.</p>
-<p>You can also customize this image with few variables:</p>
-<table>
-<thead>
-<tr>
-<th>Variables</th>
-<th>Default</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>GF_SERVER_ROOT</strong></td>
-<td><a href="http://localhost" target="_blank">http://localhost</a></td>
-<td>Set URL to configure Grafana built-in web server.</td>
-</tr>
-<tr>
-<td><strong>GF_SECURITY_ADMIN_PASSWORD</strong></td>
-<td><strong>Default without password.</strong></td>
-<td>This is a password to access the Grafana Dashboard.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="speedtest-testing">SpeedTest (Testing)</h3>
-<p>This image was created to run a script that calls speedtest-cli to test the internet connect and save data on InfluxDB. <a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a> is a tool written in Python and is used to test your Internet connection based on download and upload some content from servers configured previously (in average this test takes around 30 sec, at least in my case).</p>
-<p>The only variable to customize on this image is a variable to set the frequency that this script will run in seconds. So if you need your test to run every minute, change the variable to 60 seconds. Just bear in mind that the speed test execution time will be added on top of the test interval so you might end up with data points every 1 minute and something. </p>
-<p>If you are using docker-compose to standup you stack you can easily change the variable value on the <a href="env/testing.env">env/testing.env</a> file.</p>
-<table>
-<thead>
-<tr>
-<th>Variables</th>
-<th>Default</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>TEST_INTERVAL</strong></td>
-<td>5</td>
-<td>Time (in sec.) to set how long will sleep the script until run again.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="repositories-used-to">Repositories used to</h2>
+                        <h1 id="distributed-jmeter-docker">Distributed JMeter - Docker</h1>
+<p>Apache Jmeter&#x2122; is an open source tool that helps creating and running load test plans. And this Docker image was created to help you running different versions of JMeter in a Docker container, also helping you running in a distributed fashion (master -&gt; server approach). </p>
+<h2 id="supported-tags">Supported tags</h2>
+<p>The <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/Dockerfile" target="_blank">Dockerfile</a> here is managed and built with arguments what helps building  and pushing our JMeter images for all versions of JMeter available. If you want more information, have a look on the <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/Makefile" target="_blank">Makefile</a>.</p>
 <ul>
-<li><a href="https://hub.docker.com/_/influxdb/" target="_blank">influxdb</a> </li>
-<li><a href="https://hub.docker.com/r/grafana/grafana/" target="_blank">Grafana</a></li>
-<li><a href="https://github.com/sivel/speedtest-cli/" target="_blank">SpeedTest</a></li>
+<li>3.3, latest</li>
+<li>2.6</li>
+<li>2.7</li>
+<li>2.8</li>
+<li>2.9</li>
+<li>2.10</li>
+<li>2.11</li>
+<li>2.12</li>
+<li>2.13</li>
+<li>3.0</li>
+<li>3.1</li>
+<li>3.2</li>
+<li>4.0</li>
+<li>5.0 </li>
 </ul>
+<h2 id="running-master-or-server">Running Master or Server</h2>
+<h3 id="master">Master</h3>
+<pre><code class="lang-sh">docker run -p 60000:60000 -v <TEST_PLAN_LOCAL>:<TEST_PLAN_CONTAINER> -d pedrocesarti/jmeter-docker:latest master
+</TEST_PLAN_CONTAINER></TEST_PLAN_LOCAL></code></pre>
+<h3 id="server">Server</h3>
+<pre><code class="lang-sh">docker run -p 1099:1099 -p 50000:50000 -d pedrocesarti/jmeter-docker:latest server
+</code></pre>
+<h2 id="running-master-and-server-docker-compose">Running Master and Server (Docker Compose)</h2>
+<p>You can also create a whole stack with master and servers to run a distributed JMeter tests locally or in a Docker Swarm Cluster. Check out this <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/local/docker-compose.yml" target="_blank">docker-compose.yml</a> to see one example of this infra running locally.
+This example is going to create a master and a server container running locally, and you can also scale up and down the number servers instancesrunning.</p>
+<pre><code class="lang-sh">docker-compose up -d
+docker-compose scale server=5
+</code></pre>
+<h2 id="volumes">Volumes</h2>
+<p>Another good point to mention here is that we suggest that you use volumes to share your test plans with the master container and once you have your test plans on your master container, you only going to need exec:</p>
+<pre><code class="lang-sh">jmeter -n -t script.jmx -R server1,server2,&#x2026;
+</code></pre>
+<p>You can also use this <a href="https://github.com/pedrocesar-ti/distributed-jmeter-docker/blob/master/local/docker-compose.yml" target="_blank">docker-compose</a> to deploy in a Docker Swarm cluster defining better techniques to scale the number of replicas you want for each service and add all power of the internal discovery service.</p>
+<h2 id="k8s">K8s</h2>
+<p>For the Kubernetes support, also have a look at the official helm/<a href="https://github.com/helm/charts/tree/master/stable/distributed-jmeter" target="_blank">chart</a> repository.</p>
 <p>Enjoy! :)</p>
 
                     
@@ -607,10 +541,10 @@ $ docker-compose up -d
         </div>
 
         
-        <a href="../index.html" class="navigation navigation-prev " aria-label="Previous page: Introduction"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/charts.html" class="navigation navigation-prev " aria-label="Previous page: charts"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../docs/Xenv-jenkins-lib.html" class="navigation navigation-next " aria-label="Next page: Xenv-jenkins-lib"><i class="fa fa-angle-right"></i></a>
+        <a href="../docs/vimeo-scraper-docker.html" class="navigation navigation-next " aria-label="Next page: vimeo-scraper-docker"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
